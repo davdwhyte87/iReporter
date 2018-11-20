@@ -26,6 +26,8 @@ body
 	border-radius: 10px;
 }
 
+
+
 .box h2
 {
 	margin: 0 0 30px;
@@ -130,6 +132,11 @@ body
 	color: #111;
 	
 }
+#app-forms-bg{
+	background-image: url('../img/app-bg.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
 .btn{
 	
@@ -209,4 +216,18 @@ body
   .record-action i:hover{
 	font-size: 35px;
 	color: #111;
+}
+
+.mce-notification.mce-in{
+	display: none !important;
+}
+
+.lg{
+	width: 60%;
+}
+
+
+.form-btn{
+	padding: 10px;
+	margin: 10px;
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>John Dow is..</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body id="">
+    <section>
+        <nav class="navbar">
+            <ul id="l-nav">
+                <li><a class="active" href="#home">Home</a></li>
+                <li><a href="#">Create report</a></li>
+                <li><a href="#">Signin</a></li>
+                <li><a href="#about">Signup</a></li>
+            </ul>
+            <ul id="r-nav">
+                <li><a href="#"><i class="fa fa-fw fa-sign-out"></i> </a></li>
+            </ul>
+        </nav>
+    </section>
+    <section class="conatiner">
+        <div class="box lg">
+            <h2>Edit record</h2>
+            <form>
+                <div class="inputBox">
+                    <input type="text" name="" required="">
+                    <label>Title</label>
+                </div>
+                <div class="inputBox">
+                    <textarea id="mytextarea"></textarea>
+                </div>
+                <input type="submit" name="" value="Edit" class="form-btn"> 
+            </form>
+        </div>
+    </section>
+</body>
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        menubar:false
+    });
+</script>
+</html>
