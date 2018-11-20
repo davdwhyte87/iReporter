@@ -121,11 +121,14 @@ body
     color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
+	text-decoration: none;
+	transition: all ease-in 0.1s
 }
 
 .navbar li a:hover {
-    background-color: #111;
+	background-color:#fff;
+	color: #111;
+	
 }
 
 .btn{
