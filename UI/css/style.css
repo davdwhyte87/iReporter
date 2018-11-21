@@ -309,3 +309,26 @@ body
 #geolocation-display{
 	font-size: 20px;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+	padding: 5px;
+	font-size: 15px;
+    position: absolute;
+	z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

@@ -1,3 +1,7 @@
+tinymce.init({
+  selector: '#mytextarea',
+  menubar:false
+});
 function openDialog(name){
     document.getElementById(name).click()
 }
