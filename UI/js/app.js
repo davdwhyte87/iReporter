@@ -13,3 +13,17 @@ function previewImage(event) {
       reader.readAsDataURL(event.files[0]);
     }
   }
+
+var geolocation_display = document.getElementById("geolocation-display");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        geolocation_display.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    geolocation_display.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
