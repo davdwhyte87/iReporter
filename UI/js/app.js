@@ -44,3 +44,19 @@ function change_status(){
   status.innerHTML=status_array[new_status_id];
   console.log(new_status_id);
 }
+
+function openModal(name){
+  var modal = document.getElementById(name);
+  modal.style.display="block";
+  //close with window click
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+}
+
+function closeModal(name){
+  var modal = document.getElementById(name);
+  modal.style.display="none";
+}
