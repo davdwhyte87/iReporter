@@ -33,7 +33,7 @@ function showPosition(position) {
 }
 
 function change_status(){
-  var status_array=['Draft','Rejected','Under-investigation'];
+  var status_array=['Draft','Rejected','Under-investigation','Resolved'];
   var status=document.getElementById("status");
   var current_status_id=status.getAttribute("data");
   var new_status_id=parseInt(current_status_id)+1
