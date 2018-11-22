@@ -2,6 +2,7 @@ tinymce.init({
   selector: '#mytextarea',
   menubar:false
 });
+
 function openDialog(name){
     document.getElementById(name).click()
 }
@@ -21,7 +22,7 @@ function previewImage(event) {
 var geolocation_display = document.getElementById("geolocation-display");
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition,showGeolocationError);
     } else { 
         geolocation_display.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -31,6 +32,24 @@ function showPosition(position) {
     geolocation_display.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude;
 }
+
+function showGeolocationError(error) {
+  switch(error.code) {
+      case error.PERMISSION_DENIED:
+          geolocation_display.innerHTML = "You need to allow the browser detect your location"
+          break;
+      case error.POSITION_UNAVAILABLE:
+          geolocation_display.innerHTML = "Location information is unavailable."
+          break;
+      case error.TIMEOUT:
+          geolocation_display.innerHTML = "The request to get your location timed out."
+          break;
+      case error.UNKNOWN_ERROR:
+          geolocation_display.innerHTML = "An unknown error occurred."
+          break;
+  }
+}
+
 
 function change_status(){
   var status_array=['Draft','Rejected','Under-investigation','Resolved'];
