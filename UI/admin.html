@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Home</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section>
+        <nav class="navbar">
+            <ul id="l-nav">
+                <li><a class="active" href="admin.html">Home</a></li>
+                <li><a href="admin-users.html">Users</a></li>
+                <li><a href="index.html">Back to app</a></li>
+            </ul>
+            <ul id="r-nav">
+                <li><a href="#"><i class="fa fa-fw fa-sign-out"></i> </a></li>
+            </ul>
+        </nav>
+    </section>
+    <section class="container">
+        <div class="input-group">
+            <select class="input col-3">
+                <option>Order by</option>
+                <option>Draft</option>
+                <option>Rejected</option>
+                <option>Under investigation</option>
+            </select>
+        </div>
+        <ul class="records">
+            <li>
+                <div class="card">
+                    <div class=" container">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                               <p class="record-name">Status: <span  id="status" data="0">Draft</span> <a href="#"><i class="fa fa-fw fa-edit" id="edit_status_btn" onclick="change_status()"></i></a></p> 
+                            </div>
+                            <div class="grid-item">
+                                <div class="image-container">
+                                    <img class="record-image" src="./img/rec1.jpg"/> 
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                               <p class="record-title">Json dweiler is gay!</p> 
+                               <p class="record-text">
+                                    is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                     industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                                      of type and
+                                     scrambled it to make a type specimen book. It has survived not only five centuries.. <a href="">Read more</a>
+                               </p>
+                            </div>
+                            <div class="grid-item">
+                                <div class="grid-container-record-actions">
+                                    <div class="grid-item-record-actions">
+                                        <div class="record-action">
+                                            <a href=""><i class="fa fa-fw fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="grid-item-record-actions">
+                                        <div class="record-action">
+                                            <a href=""><i class="fa fa-fw fa-edit"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="card">
+                    <div class=" container">
+                        <div class="grid-container">
+                            <div class="grid-item">
+                                <p class="record-name">Status: Draft <a href=""><i class="fa fa-fw fa-edit"></i></a></p> 
+                            </div>
+                            <div class="grid-item">
+                                <div class="image-container">
+                                    <img class="record-image" src="./img/rec1.jpg"/> 
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                                <p class="record-title">Json dweiler is gay!</p> 
+                                <p class="record-text">
+                                    is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                                        of type and
+                                        scrambled it to make a type specimen book. It has survived not only five centuries.. <a href="">Read more</a>
+                                </p>
+                            </div>
+                            <div class="grid-item">
+                                <div class="grid-container-record-actions">
+                                    <div class="grid-item-record-actions">
+                                        <div class="record-action">
+                                            <a href=""><i class="fa fa-fw fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="grid-item-record-actions">
+                                        <div class="record-action">
+                                            <a href=""><i class="fa fa-fw fa-edit"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                    <div class="card">
+                        <div class=" container">
+                            <div class="grid-container">
+                                <div class="grid-item">
+                                   <p class="record-name">Status: Draft <a href=""><i class="fa fa-fw fa-edit"></i></a></p> 
+                                </div>
+                                <div class="grid-item">
+                                    <div class="image-container">
+                                        <img class="record-image" src="./img/rec1.jpg"/> 
+                                    </div>
+                                </div>
+                                <div class="grid-item">
+                                   <p class="record-title">Json dweiler is gay!</p> 
+                                   <p class="record-text">
+                                        is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                         industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                                          of type and
+                                         scrambled it to make a type specimen book. It has survived not only five centuries.. <a href="">Read more</a>
+                                   </p>
+                                </div>
+                                <div class="grid-item">
+                                    <div class="grid-container-record-actions">
+                                        <div class="grid-item-record-actions">
+                                            <div class="record-action">
+                                                <a href=""><i class="fa fa-fw fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="grid-item-record-actions">
+                                            <div class="record-action">
+                                                <a href=""><i class="fa fa-fw fa-edit"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+        </ul>
+        
+    </section>
+</body>
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+<script src="./js/app.js"></script>
+</html>
