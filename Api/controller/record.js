@@ -1,5 +1,8 @@
 import check from 'express-validator/check';
 
+
+// temporary in memory storage
+let database=[];
 const validate=(method) => {
     switch (method) {
         case 'create': {
@@ -26,4 +29,5 @@ const create=(req, res) => {
     let x='k';
     return res.status(200).json({ status: 200, data: [x] });
 };
+
 export { validate, create };
