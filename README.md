@@ -53,7 +53,7 @@ resolved).
 - $ cd iReporter
 - $ npm i , to install dependencies
 - $ npm start, to start the server
-Once the server starts-up, you can query the api at 'http://localhost:3000/api/v' using the end points stated above.
+Once the server starts-up, you can query the api at 'http://localhost:3000/api/v1' using the end points stated above.
 
 ## Contributing
 >  Feel free to 🍴 fork this repository

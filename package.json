@@ -7,7 +7,7 @@
     "node": "10.13.0"
   },
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets env",
+    "start": "npm run build && nodemon server.js --exec babel-node --presets env",
     "test": "npm run build && mocha build/test/*.js --exit",
     "clean": "rimraf build",
     "build": "npm run clean && babel -d ./build ./ -s --ignore node_modules,UI",
