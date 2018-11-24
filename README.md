@@ -8,6 +8,8 @@ iReporter enables users  to bring any form of corruption to the notice of approp
 * [Features](#Features)
 * [Built with](#built-with)
 * [Known Issues](#Known-issues)
+* [Installation](#Installation)
+* [Contributing](#Contributing)
 
 
 ## Project Overview
@@ -43,6 +45,22 @@ resolved).
 - The views are just built out, they have no functionalities yet
 
 
+## Installation
+
+- $ git clone 'https://github.com/davdwhyte87/iReporter'
+- $ cd iReporter
+- $ npm i , to install dependencies
+- $ npm start, to start the server
+Once the server starts-up, you can query the api at 'http://localhost:3000/api/v' using the end points stated above.
+
+## Contributing
+>  Feel free to 🍴 fork this repository
+
+>  👯 Clone this repository to your local machine using 'https://github.com/davdwhyte87/iReporter'
+
+> Make Contributions
+
+> 🔃 Create a new pull request using 'https://github.com/davdwhyte87/iReporter./compare'
 
 
 ## License
