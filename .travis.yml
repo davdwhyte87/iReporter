@@ -6,4 +6,4 @@ script:
   - npm run build
 
 before_install:
-  - npm i babel 
+  - npm i -g babel-preset-env mocha chai babel-cli 
