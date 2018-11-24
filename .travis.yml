@@ -6,4 +6,4 @@ script:
   - npm run build
 
 before_install:
-  - npm i 
+  - npm i babel 
