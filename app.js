@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.get('/', (req, res) => {
+app.get('/api/v1', (req, res) => {
     res.status(200).send('Whats up mann long time')
 })
 app.use(morgan('dev'))
