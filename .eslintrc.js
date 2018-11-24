@@ -9,6 +9,8 @@ module.exports = {
         "indent":["off"],
         "no-undef":["off"],
         "prefer-const":["off"],
-        "prefer-template":["off"]
+        "prefer-template":["off"],
+        "arrow-body-style":["off"],
+        "object-curly-newline":["off"]
     }
 };

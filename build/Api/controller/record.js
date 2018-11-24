@@ -24,6 +24,19 @@ var validate = function validate(method) {
     }
 };
 var create = function create(req, res) {
+    var errorFormatter = function errorFormatter(_ref) {
+        var location = _ref.location,
+            msg = _ref.msg,
+            param = _ref.param,
+            value = _ref.value,
+            nestedErrors = _ref.nestedErrors;
+
+        return msg;
+    };
+    var errors = _check2.default.validationResult(req).formatWith(errorFormatter);
+    if (!errors.isEmpty()) {
+        return res.status(404).json({ status: 404, error: errors.array() });
+    }
     var x = 'k';
     return res.status(200).json({ status: 200, data: [x] });
 };

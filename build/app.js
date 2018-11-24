@@ -40,7 +40,7 @@ app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
 app.use(apiv + '/record', _record2.default);
 app.get('/api/v1', function (req, res) {
-    res.status(200).send('Whats up mann long time');
+    res.status(200).send('Whats up mann long time ooo');
 });
 app.use((0, _morgan2.default)('dev'));
 exports.default = app;
