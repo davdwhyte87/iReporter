@@ -27,7 +27,8 @@ var validate = function validate(method) {
 };
 
 var CreateId = function CreateId() {
-    return 34;
+    var id = Math.floor(Math.random() * 90000000000) + 100000000000;
+    return id;
 };
 var create = function create(req, res) {
     var errorFormatter = function errorFormatter(_ref) {
@@ -56,6 +57,10 @@ var create = function create(req, res) {
     _Record.DbRecord.push(record);
     console.log(_Record.DbRecord);
     return res.status(200).json({ status: 200, data: record });
+};
+
+var GetAll = function GetAll(req, res) {
+    return res.status(200).json({ status: 200, data: _Record.DbRecord });
 };
 
 exports.validate = validate;

@@ -1,7 +1,7 @@
 # iReporter
 
-[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=develop)](https://travis-ci.org/davdwhyte87/iReporter)
-[![Coverage Status](https://coveralls.io/repos/github/davdwhyte87/iReporter/badge.svg?branch=develop&service=github)](https://coveralls.io/github/davdwhyte87/iReporter?branch=develop&service=github)
+[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=api_get_records)](https://travis-ci.org/davdwhyte87/iReporter)
+[![Coverage Status](https://coveralls.io/repos/github/davdwhyte87/iReporter/badge.svg?branch=api_get_records&service=github)](https://coveralls.io/github/davdwhyte87/iReporter?branch=api_get_records&service=github)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6d3c17678ddc23f0d8eb/maintainability)](https://codeclimate.com/github/davdwhyte87/iReporter/maintainability)
 
 

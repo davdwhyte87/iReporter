@@ -22,7 +22,8 @@ const validate=(method) => {
 };
 
 const CreateId=() => {
-    return 34;
+    let id =Math.floor(Math.random()*90000000000) + 100000000000;
+    return id;
 };
 const create=(req, res) => {
     const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
@@ -43,8 +44,11 @@ const create=(req, res) => {
     record.location= req.body.location;
     record.status= req.body.status;
     DbRecord.push(record);
-    console.log(DbRecord);
     return res.status(200).json({ status: 200, data: record });
 };
 
-export { validate, create };
+const GetAll=(req, res) => {
+    return res.status(200).json({ status: 200, data: DbRecord });
+};
+
+export { validate, create, GetAll };
