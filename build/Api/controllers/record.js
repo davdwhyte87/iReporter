@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.create = exports.validate = undefined;
+exports.GetAll = exports.create = exports.validate = undefined;
 
 var _check = require('express-validator/check');
 
@@ -27,7 +27,8 @@ var validate = function validate(method) {
 };
 
 var CreateId = function CreateId() {
-    return 34;
+    var id = Math.floor(Math.random() * 90000000000) + 100000000000;
+    return id;
 };
 var create = function create(req, res) {
     var errorFormatter = function errorFormatter(_ref) {
@@ -41,6 +42,7 @@ var create = function create(req, res) {
     };
     var errors = _check2.default.validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
+        console.log(errors.array(true));
         return res.status(404).json({ status: 404, error: errors.array({ onlyFirstError: true }) });
     }
     var record = _Record.Record;
@@ -54,10 +56,14 @@ var create = function create(req, res) {
     record.location = req.body.location;
     record.status = req.body.status;
     _Record.DbRecord.push(record);
-    console.log(_Record.DbRecord);
     return res.status(200).json({ status: 200, data: record });
+};
+
+var GetAll = function GetAll(req, res) {
+    return res.status(200).json({ status: 200, data: _Record.DbRecord });
 };
 
 exports.validate = validate;
 exports.create = create;
+exports.GetAll = GetAll;
 //# sourceMappingURL=record.js.map
