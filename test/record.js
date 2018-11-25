@@ -137,4 +137,24 @@ describe('Tests for records ', () => {
             done();
         });
     });
+    // tests for deleting record
+    it('It should delete a record', (done) => {
+        chai.request(app).del('/api/v1/record/'+ExampleRecordId)
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('data');
+            done();
+        });
+    });
+
+    it('It should not delete a record if the id is wrong', (done) => {
+        chai.request(app).del('/api/v1/record/'+ExampleRecordId+93838)
+        .end((err, res) => {
+            res.should.have.status(404);
+            res.body.should.be.a('object');
+            res.body.should.have.property('error');
+            done();
+        });
+    });
 });
