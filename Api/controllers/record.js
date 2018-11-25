@@ -31,6 +31,7 @@ const create=(req, res) => {
       };
     let errors=check.validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
+        console.log(errors.array(true));
         return res.status(404).json({ status: 404, error: errors.array({ onlyFirstError: true }) });
     }
     let record=Record;
