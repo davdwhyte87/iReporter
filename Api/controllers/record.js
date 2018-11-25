@@ -1,8 +1,6 @@
 import check from 'express-validator/check';
-import Record from '../models/Record';
+import { Record, DbRecord } from '../models/Record';
 
-// temporary in memory storage
-let Records=[];
 const validate=(method) => {
     switch (method) {
         case 'create': {
@@ -44,8 +42,8 @@ const create=(req, res) => {
     record.image= req.body.image;
     record.location= req.body.location;
     record.status= req.body.status;
-    Records.push(record);
-    console.log(Records);
+    DbRecord.push(record);
+    console.log(DbRecord);
     return res.status(200).json({ status: 200, data: record });
 };
 

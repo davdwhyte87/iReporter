@@ -9,5 +9,5 @@ const Record={
     status: String,
     image: String,
 };
-
-export default Record;
+const DbRecord=[];
+export { Record, DbRecord };

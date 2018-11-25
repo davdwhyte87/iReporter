@@ -1,5 +1,7 @@
 # iReporter
-[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=ft_setup_nodejs_api)](https://travis-ci.org/davdwhyte87/iReporter)
+[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=api_create_record)](https://travis-ci.org/davdwhyte87/iReporter)
+[![Coverage Status](https://coveralls.io/repos/github/davdwhyte87/iReporter/badge.svg?branch=api_create_record)](https://coveralls.io/github/davdwhyte87/iReporter?branch=api_create_record)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6d3c17678ddc23f0d8eb/maintainability)](https://codeclimate.com/github/davdwhyte87/iReporter/maintainability)
 
 iReporter enables users  to bring any form of corruption to the notice of appropriate authorities and the general public
 

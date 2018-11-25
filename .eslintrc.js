@@ -7,7 +7,7 @@ module.exports = {
         "space-infix-ops":["off"],
         "no-unused-vars":['off'],
         "indent":["off"],
-        "no-undef":["off"],
+        // "no-undef":["on"],
         "prefer-const":["off"],
         "prefer-template":["off"],
         "arrow-body-style":["off"],

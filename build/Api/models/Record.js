@@ -4,16 +4,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var Record = {
-    id: id,
+    id: Int16Array,
     title: String,
     comment: String,
     created_on: Date,
-    created_by: created_by,
+    created_by: Int16Array,
     type: String,
     location: String,
     status: String,
     image: String
 };
-
-exports.default = Record;
+var DbRecord = [];
+exports.Record = Record;
+exports.DbRecord = DbRecord;
 //# sourceMappingURL=Record.js.map
