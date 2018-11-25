@@ -15,6 +15,19 @@ const validate=(method) => {
                 check.body('status', 'A defualt status is required').exists().isString(),
             ];
         }
+        case 'update': {
+            return [
+                check.body('title', 'a valid title is needed').exists(),
+                check.body('title', 'Title is too short, at least 5 characters').isLength({ min: 5 }),
+                check.body('comment', 'a valid comment is required').exists().isLength({ min: 5 }),
+                check.body('type', 'You need to selected a type').exists().isString(),
+                check.body('comment', 'You need to add a valid comment (At least 300 characters)')
+                .exists().isString().isLength({ min: 3 }),
+                check.body('created_by', 'User Id is needed').exists().isInt(),
+                check.body('status', 'A defualt status is required').exists().isString(),
+                check.body('location', 'Location is not valid').isString(),
+            ];
+        }
         default: {
             return [];
         }
@@ -54,12 +67,45 @@ const GetAll=(req, res) => {
 
 const GetSingle=(req, res) => {
     const RecordId=parseInt(req.params.id, 10);
+    let RecordData;
     DbRecord.map((record) => {
         if (record.id===RecordId) {
+            RecordData=record;
             return res.status(200).json({ status: 200, data: record });
         }
     });
-    return res.status(404).json({ status: 404, error: 'Data not found' });
+    if (!RecordData) {
+        return res.status(404).json({ status: 404, error: 'Data not found' });
+    }
+    return res.status(404).json({ status: 404, error: 'An error occurred' });
 };
 
-export { validate, create, GetAll, GetSingle };
+const UpdateRecord=(req, res) => {
+    let RecordIndex;
+    let OriginalRecord;
+    const RecordId=parseInt(req.params.id, 10);
+    DbRecord.map((record, index) => {
+        if (record.id===RecordId) {
+            OriginalRecord=record;
+            RecordIndex=index;
+        }
+    });
+    if (!OriginalRecord) {
+        return res.status(404).json({ status: 404, error: 'Record not found' });
+    }
+    let UpdateRecordData=Record;
+    UpdateRecordData.title=req.body.title || OriginalRecord.title;
+    UpdateRecordData.type=req.body.type || OriginalRecord.type;
+    UpdateRecordData.id= OriginalRecord.id;
+    UpdateRecordData.comment= req.body.comment || OriginalRecord.comment;
+    UpdateRecordData.created_on= OriginalRecord.created_on;
+    UpdateRecordData.created_by= OriginalRecord.created_by;
+    UpdateRecordData.image= req.body.image || OriginalRecord.image;
+    UpdateRecordData.location= req.body.location || OriginalRecord.location;
+    UpdateRecordData.status= req.body.status || OriginalRecord.status;
+    DbRecord.splice(RecordIndex, 1, UpdateRecordData);
+
+    return res.status(200).json({ status: 200, data: [{ id: UpdateRecordData.id, message: 'Updated Record' }] });
+};
+
+export { validate, create, GetAll, GetSingle, UpdateRecord };
