@@ -52,4 +52,14 @@ const GetAll=(req, res) => {
     return res.status(200).json({ status: 200, data: DbRecord });
 };
 
-export { validate, create, GetAll };
+const GetSingle=(req, res) => {
+    const RecordId=parseInt(req.params.id, 10);
+    DbRecord.map((record) => {
+        if (record.id===RecordId) {
+            return res.status(200).json({ status: 200, data: record });
+        }
+    });
+    return res.status(404).json({ status: 404, error: 'Data not found' });
+};
+
+export { validate, create, GetAll, GetSingle };
