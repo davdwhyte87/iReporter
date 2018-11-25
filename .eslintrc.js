@@ -11,6 +11,8 @@ module.exports = {
         "prefer-const":["off"],
         "prefer-template":["off"],
         "arrow-body-style":["off"],
-        "object-curly-newline":["off"]
+        "object-curly-newline":["off"],
+        "array-callback-return":["off"],
+        "consistent-return":["off"]
     }
 };

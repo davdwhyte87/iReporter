@@ -16,6 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _chai2.default.use(_chaiHttp2.default);
 var should = _chai2.default.should();
+var ExampleRecordId = null;
 
 describe('Tests for records ', function () {
     it('It should create a record', function (done) {
@@ -31,6 +32,7 @@ describe('Tests for records ', function () {
             res.should.be.a('object');
             res.body.should.have.property('data');
             res.body.data.should.have.property('title');
+            ExampleRecordId = res.body.data.id;
             done();
         });
     });
@@ -71,6 +73,24 @@ describe('Tests for records ', function () {
             res.should.be.a('object');
             res.body.should.have.property('data');
             res.body.data.should.be.a('array');
+            done();
+        });
+    });
+
+    it('It should get a single record', function (done) {
+        _chai2.default.request(_app2.default).get('/api/v1/record/' + ExampleRecordId).end(function (err, res) {
+            res.should.have.status(200);
+            res.should.be.a('object');
+            res.body.should.have.property('data');
+            res.body.data.should.be.a('object');
+            done();
+        });
+    });
+    it('It should not get a single record if it does not exists', function (done) {
+        _chai2.default.request(_app2.default).get('/api/v1/record/' + ExampleRecordId + 99302).end(function (err, res) {
+            res.should.have.status(404);
+            res.should.be.a('object');
+            res.body.should.have.property('error');
             done();
         });
     });

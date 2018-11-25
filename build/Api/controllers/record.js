@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.GetAll = exports.create = exports.validate = undefined;
+exports.GetSingle = exports.GetAll = exports.create = exports.validate = undefined;
 
 var _check = require('express-validator/check');
 
@@ -63,7 +63,18 @@ var GetAll = function GetAll(req, res) {
     return res.status(200).json({ status: 200, data: _Record.DbRecord });
 };
 
+var GetSingle = function GetSingle(req, res) {
+    var RecordId = parseInt(req.params.id, 10);
+    _Record.DbRecord.map(function (record) {
+        if (record.id === RecordId) {
+            return res.status(200).json({ status: 200, data: record });
+        }
+    });
+    return res.status(404).json({ status: 404, error: 'Data not found' });
+};
+
 exports.validate = validate;
 exports.create = create;
 exports.GetAll = GetAll;
+exports.GetSingle = GetSingle;
 //# sourceMappingURL=record.js.map

@@ -79,4 +79,13 @@ describe('Tests for records ', () => {
             done();
         });
     });
+    it('It should not get a single record if it does not exists', (done) => {
+        chai.request(app).get('/api/v1/record/'+ExampleRecordId+99302)
+        .end((err, res) => {
+            res.should.have.status(404);
+            res.should.be.a('object');
+            res.body.should.have.property('error');
+            done();
+        });
+    });
 });

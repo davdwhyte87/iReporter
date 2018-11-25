@@ -35,6 +35,7 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Headers', '*');
     next();
 });
+// initialize database
 var apiv = '/api/v1';
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
