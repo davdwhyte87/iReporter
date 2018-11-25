@@ -52,4 +52,8 @@ const GetAll=(req, res) => {
     return res.status(200).json({ status: 200, data: DbRecord });
 };
 
-export { validate, create, GetAll };
+const GetSingle=(req, res) => {
+
+};
+
+export { validate, create, GetAll, GetSingle };

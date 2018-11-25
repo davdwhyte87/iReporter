@@ -4,6 +4,7 @@ import app from '../app';
 
 chai.use(chaiHttp);
 const should=chai.should();
+let ExampleRecordId=null;
 
 describe('Tests for records ', () => {
     it('It should create a record', (done) => {
@@ -20,6 +21,7 @@ describe('Tests for records ', () => {
             res.should.be.a('object');
             res.body.should.have.property('data');
             res.body.data.should.have.property('title');
+            ExampleRecordId=res.body.data.id;
             done();
         });
     });
@@ -63,6 +65,17 @@ describe('Tests for records ', () => {
             res.should.be.a('object');
             res.body.should.have.property('data');
             res.body.data.should.be.a('array');
+            done();
+        });
+    });
+
+    it('It should get a single record', (done) => {
+        chai.request(app).get('/api/v1/record/'+ExampleRecordId)
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.should.be.a('object');
+            res.body.should.have.property('data');
+            res.body.data.should.be.a('object');
             done();
         });
     });
