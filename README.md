@@ -1,5 +1,5 @@
 # iReporter
-[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=ft_setup_nodejs_api)](https://travis-ci.org/davdwhyte87/iReporter)
+[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=develop)](https://travis-ci.org/davdwhyte87/iReporter)
 
 iReporter enables users  to bring any form of corruption to the notice of appropriate authorities and the general public
 
