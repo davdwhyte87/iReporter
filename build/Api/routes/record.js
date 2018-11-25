@@ -19,5 +19,6 @@ var RecordRouter = _express2.default.Router();
 RecordRouter.post('/', (0, _record.validate)('create'), _record.create);
 RecordRouter.get('/', _record.GetAll);
 RecordRouter.get('/:id', _record.GetSingle);
+RecordRouter.patch('/:id', _record.UpdateRecord);
 exports.default = RecordRouter;
 //# sourceMappingURL=record.js.map
