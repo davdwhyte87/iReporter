@@ -7,11 +7,12 @@
     "node": "10.13.0"
   },
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets env",
+    "start": "npm run build && nodemon server.js --exec babel-node --presets env",
     "test": "npm run build && mocha build/test/*.js --exit",
-    "clean": "rimraf build",
+    "clean": "rimraf build coverage",
     "build": "npm run clean && babel -d ./build ./ -s --ignore node_modules,UI",
-    "start-prod": "npm run build && babel-watch server.js && nodemon ./build/server.js --exec "
+    "start-prod": "npm run build && babel-watch server.js && nodemon ./build/server.js --exec ",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./build/test/*.js --exit"
   },
   "repository": {
     "type": "git",
@@ -47,12 +48,14 @@
     "babel-watch": "^2.0.7",
     "chai": "^4.1.2",
     "chai-http": "^4.2.0",
-    "mocha": "^5.2.0",
-    "mongoose": "^5.3.9",
-    "nodemon": "^1.18.5",
+    "coveralls": "^3.0.2",
     "eslint": "5.5.0",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0"
+    "eslint-plugin-import": "2.14.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.9",
+    "nodemon": "^1.18.5"
   },
   "directories": {
     "test": "build/test"
