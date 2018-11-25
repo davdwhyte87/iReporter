@@ -19,7 +19,7 @@ var should = _chai2.default.should();
 
 describe('try testing framework', function () {
     it('It should return', function (done) {
-        _chai2.default.request(_app2.default).get('/').end(function (err, res) {
+        _chai2.default.request(_app2.default).get('/api/v1').end(function (err, res) {
             res.should.have.status(200);
             done();
         });
