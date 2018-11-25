@@ -108,4 +108,22 @@ const UpdateRecord=(req, res) => {
     return res.status(200).json({ status: 200, data: [{ id: UpdateRecordData.id, message: 'Updated Record' }] });
 };
 
-export { validate, create, GetAll, GetSingle, UpdateRecord };
+const Delete=(req, res) => {
+    const RecordId=parseInt(req.params.id, 10);
+    let RecordData;
+    let ID;
+    DbRecord.map((record, index) => {
+        if (record.id===RecordId) {
+            RecordData=record;
+            ID=RecordData.id;
+            DbRecord.splice(index, 1);
+            return res.status(200).json({ status: 200, data: [{ id: ID, message: 'Record deleted' }] });
+        }
+    });
+    if (!RecordData) {
+        return res.status(404).json({ status: 404, error: 'Data not found' });
+    }
+    return res.status(404).json({ status: 404, error: 'An error occurred' });
+};
+
+export { validate, create, GetAll, GetSingle, UpdateRecord, Delete };
