@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.UpdateRecord = exports.GetSingle = exports.GetAll = exports.create = exports.validate = undefined;
+exports.Delete = exports.UpdateRecord = exports.GetSingle = exports.GetAll = exports.create = exports.validate = undefined;
 
 var _check = require('express-validator/check');
 
@@ -110,9 +110,28 @@ var UpdateRecord = function UpdateRecord(req, res) {
     return res.status(200).json({ status: 200, data: [{ id: UpdateRecordData.id, message: 'Updated Record' }] });
 };
 
+var Delete = function Delete(req, res) {
+    var RecordId = parseInt(req.params.id, 10);
+    var RecordData = void 0;
+    var ID = void 0;
+    _Record.DbRecord.map(function (record, index) {
+        if (record.id === RecordId) {
+            RecordData = record;
+            ID = RecordData.id;
+            _Record.DbRecord.splice(index, 1);
+            return res.status(200).json({ status: 200, data: [{ id: ID, message: 'Record deleted' }] });
+        }
+    });
+    if (!RecordData) {
+        return res.status(404).json({ status: 404, error: 'Data not found' });
+    }
+    return res.status(404).json({ status: 404, error: 'An error occurred' });
+};
+
 exports.validate = validate;
 exports.create = create;
 exports.GetAll = GetAll;
 exports.GetSingle = GetSingle;
 exports.UpdateRecord = UpdateRecord;
+exports.Delete = Delete;
 //# sourceMappingURL=record.js.map

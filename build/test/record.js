@@ -140,5 +140,23 @@ describe('Tests for records ', function () {
             done();
         });
     });
+    // tests for deleting record
+    it('It should delete a record', function (done) {
+        _chai2.default.request(_app2.default).del('/api/v1/record/' + ExampleRecordId).end(function (err, res) {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('data');
+            done();
+        });
+    });
+
+    it('It should not delete a record if the id is wrong', function (done) {
+        _chai2.default.request(_app2.default).del('/api/v1/record/' + ExampleRecordId + 93838).end(function (err, res) {
+            res.should.have.status(404);
+            res.body.should.be.a('object');
+            res.body.should.have.property('error');
+            done();
+        });
+    });
 });
 //# sourceMappingURL=record.js.map
