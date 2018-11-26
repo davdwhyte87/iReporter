@@ -11,7 +11,7 @@
     "test": "npm run build && mocha build/test/*.js --exit",
     "clean": "rimraf build coverage",
     "build": "npm run clean && babel -d ./build ./ -s --ignore node_modules,UI",
-    "start-prod": "npm run build && babel-watch server.js && nodemon ./build/server.js --exec ",
+    "start-prod": "npm run build && nodemon ./build/server.js",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./build/test/*.js --exit"
   },
   "repository": {
