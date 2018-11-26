@@ -3,5 +3,6 @@ import app from './app';
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
+// start server
 server.listen(port);
 export default server;
