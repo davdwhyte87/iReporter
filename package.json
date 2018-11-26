@@ -11,7 +11,7 @@
     "test": "npm run build && mocha build/test/*.js --exit",
     "clean": "rimraf build coverage",
     "build": "npm run clean && babel -d ./build ./ -s --ignore node_modules,UI",
-    "start-prod": "npm run build && babel-watch server.js && nodemon ./build/server.js --exec ",
+    "start-prod": "npm run build && nodemon ./build/server.js",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./build/test/*.js --exit"
   },
   "repository": {
@@ -41,7 +41,10 @@
     "jsonwebtoken": "^8.3.0",
     "lokijs": "^1.5.5",
     "morgan": "^1.9.0",
-    "sendgrid": "^5.2.3"
+    "nodemon": "^1.18.5",
+    "rimraf": "^2.6.2",
+    "sendgrid": "^5.2.3",
+    "babel-cli": "^6.26.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -55,8 +58,7 @@
     "eslint-plugin-import": "2.14.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
-    "mongoose": "^5.3.9",
-    "nodemon": "^1.18.5"
+    "mongoose": "^5.3.9"
   },
   "directories": {
     "test": "build/test"
