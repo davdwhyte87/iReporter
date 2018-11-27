@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Admin users</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style_.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <section>
-        <nav class="navbar">
+        <nav class="navbar" id="navbar">
+            <a href="#" onclick="toggleNav()" class="nav-mobile">☰ menu</a>
             <ul id="l-nav">
                 <li><a class="active" href="admin.html">Home</a></li>
                 <li><a href="admin-users.html">Users</a></li>
@@ -19,8 +23,7 @@
             </ul>
         </nav>
     </section>
-    <section class="container-center">
-        <div class="grid-container">
+    <section class="container">
         <h2>Users</h2>
         <div>
             <form>
@@ -28,22 +31,13 @@
                 <button class="btn-primary">Search</button>
             </form>
         </div>
-        <table class="table">
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>fred939@gmail.com</td>
-                <td>092983847</td>
-                <td><button class="btn-primary">Make admin</button></td>
-            </tr>
-        </table>
+        <div class="card xm">
+            <ul>
+                <li>Name: Dalloman kolade</li>
+                <li>Email: kolad93@gmail.com</li>
+                <li>Phone: 09393993</li>
+                <li><button class="btn-primary">Make admin</button></li>
+            </ul>
         </div>
     </section>
 </body>

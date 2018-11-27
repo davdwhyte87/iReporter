@@ -55,6 +55,10 @@
     padding: 20px;
 }
 
+ul{
+    list-style: none;
+}
+
 @media only screen and (max-width: 720px){
 .card{
     width: 100%;
