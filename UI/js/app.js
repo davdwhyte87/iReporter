@@ -1,8 +1,16 @@
 tinymce.init({
   selector: '#mytextarea',
-  menubar:false
+  menubar: false,
 });
 
+function toggleNav() {
+    let navbar = document.getElementById('navbar');
+    if (navbar.className === 'navbar') {
+        navbar.className += ' responsive';
+    } else {
+        navbar.className = 'navbar';
+    }
+}
 function openDialog(name){
     document.getElementById(name).click()
 }
