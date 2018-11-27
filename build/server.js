@@ -17,6 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var port = process.env.PORT || 3000;
 var server = _http2.default.createServer(_app2.default);
 
+// start server
 server.listen(port);
 exports.default = server;
 //# sourceMappingURL=server.js.map

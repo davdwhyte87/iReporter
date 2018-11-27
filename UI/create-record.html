@@ -2,16 +2,20 @@
 <html>
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iReporter-create</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style_.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body id="page-container">
-    <section class="head">
-        <nav class="navbar">
+<body>
+    <section>
+        <nav class="navbar" id="navbar">
+            <a href="#" onclick="toggleNav()" class="nav-mobile">☰ menu</a>
             <ul id="l-nav">
                 <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="records.html">Records</a></li>
                 <li><a href="create-record.html">Create report</a></li>
                 <li><a href="sign-in.html">Signin</a></li>
                 <li><a href="sign-up.html">Signup</a></li>
@@ -23,48 +27,43 @@
             </ul>
         </nav>
     </section>
-    <section class="item2">
-        <div class="container-center">
-            <div class="card lg center">
-                <h2 class="text-center">Create record</h2>
-                <div class="img-preview-container">
-                    <div class="conatiner">
-                        <img id="img-preview"/>
-                    </div>
-                    <div class="" >
-                        <button class="btn-primary" onclick="openDialog('editImage')"><i class="fa fa-fw fa-camera"></i> </button>
-                    </div>
+    <section class="container">
+        <div class="card">
+            <div class="conatiner">
+                <img id="img-preview"/>
+            </div>
+            <div class="" >
+                <button class="btn-primary" onclick="openDialog('editImage')"><i class="fa fa-fw fa-camera"></i> </button>
+            </div>
+                
+            <form>
+                <input type="file" id="editImage" onchange="previewImage(this)" hidden/>
+                <div class="input-group">
+                    <input type="text" name="" class="input" required="" placeholder="Title">
+                </div>
+                <div class="input-group">
+                    <select class="input">
+                        <option>Record type</option>
+                        <option>Red-flag</option>
+                        <option>Intervention</option>
+                    </select>
+                    <i class="fa fa-fw fa-question-circle tooltip"><span class="tooltiptext">
+                        A red-flag is an incident linked to curroption eg a public officer talking about curropt deeds. An intervention is a call to government agencies
+                        eg. bad roads, drug abuse, bad traffic.
+                    </span></i>
+                </div>
+                <div class="inputBox">
+                    <textarea id="mytextarea" placeholder="Content here.."></textarea>
+                </div>
+                <div class="input-group">
+                    <button onclick="getLocation()" class="btn-primary">Get geolocation</button>
+                    <p id="geolocation-display"></p>
+                </div>
+                <div class="container-center">
+                    <button name=""  class="btn-primary">Create <i class="fa fa-fw fa-plus-square"></i></button>
                 </div>
                 
-                <form>
-                    <input type="file" id="editImage" onchange="previewImage(this)" hidden/>
-                    <div class="input-group">
-                        <input type="text" name="" class="input" required="" placeholder="Title">
-                    </div>
-                    <div class="input-group">
-                        <select class="input">
-                            <option>Record type</option>
-                            <option>Red-flag</option>
-                            <option>Intervention</option>
-                        </select>
-                        <i class="fa fa-fw fa-question-circle tooltip"><span class="tooltiptext">
-                            A red-flag is an incident linked to curroption eg a public officer talking about curropt deeds. An intervention is a call to government agencies
-                            eg. bad roads, drug abuse, bad traffic.
-                        </span></i>
-                    </div>
-                    <div class="inputBox">
-                        <textarea id="mytextarea" placeholder="Content here.."></textarea>
-                    </div>
-                    <div class="input-group">
-                        <button onclick="getLocation()" class="btn-primary">Get geolocation</button>
-                        <p id="geolocation-display"></p>
-                    </div>
-                    <div class="container-center">
-                        <button name=""  class="btn-primary">Create <i class="fa fa-fw fa-plus-square"></i></button>
-                    </div>
-                    
-                </form>
-            </div>
+            </form>
         </div>
     </section>
 </body>
