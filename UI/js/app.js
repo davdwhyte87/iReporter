@@ -59,7 +59,7 @@ function showGeolocationError(error) {
 }
 
 
-function change_status() {
+function change_status(){
   var status_array=['Draft','Rejected','Under-investigation','Resolved'];
   var status=document.getElementById("status");
   var current_status_id=status.getAttribute("data");
