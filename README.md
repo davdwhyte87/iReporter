@@ -16,6 +16,7 @@ iReporter enables users  to bring any form of corruption to the notice of approp
 * [Known Issues](#Known-issues)
 * [Installation](#Installation)
 * [Contributing](#Contributing)
+* [Api Endpoints](#Api-Endpoints)
 
 
 ## Project Overview
@@ -45,7 +46,12 @@ resolved).
 - `Node.js`
 - `Express framework`
 
-
+## Api Endpoints
+- `GET /api/v1/record` - Fetches all the records
+- `GET /api/v1/record/:id` - Fetches a single record
+- `POST /api/v1/record` - Creates a record
+- `PATCH /api/v1/record/:id` - Edits a record
+- `DELETE /api/v1/record/:id` - Deletes a record
  
  ## Known issues
 - The views are just built out, they have no functionalities yet
