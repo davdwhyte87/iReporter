@@ -1,5 +1,5 @@
 import check from 'express-validator/check';
-import { Record, DbRecord } from '../models/Record';
+import { Record, DbRecord, createRecordDB } from '../models/Record';
 
 const validate=(method) => {
     switch (method) {
@@ -55,9 +55,15 @@ const create=(req, res) => {
     record.created_by= req.body.created_by;
     record.image= req.body.image;
     record.location= req.body.location;
-    record.status= req.body.status;
+    record.status= 0;
     DbRecord.push(record);
-    return res.status(200).json({ status: 200, data: record });
+    createRecordDB(record).then((data) => {
+        console.log(data);
+        return res.status(200).json({ status: 200, data: record });
+    })
+    .catch((error) => {
+        return res.status(404).json({ status: 404, error: 'An error occurred' });
+    });
 };
 
 const getAll=(req, res) => {

@@ -12,7 +12,8 @@
     "clean": "rimraf dist coverage",
     "build": "npm run clean && babel -d ./dist ./ -s --ignore node_modules,UI",
     "start-prod": "npm run build && nodemon ./dist/server.js",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./dist/test/*.js --exit"
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./dist/test/*.js --exit",
+    "create-db": "npm run build && node dist/api/db/db.js"
   },
   "repository": {
     "type": "git",
@@ -32,19 +33,20 @@
   "homepage": "https://github.com/davdwhyte87/iReporter#readme",
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
-    "config": "^2.0.1",
+    "config": "^2.0.2",
     "express": "^4.16.3",
     "express-validator": "^5.3.0",
     "jsonwebtoken": "^8.3.0",
     "lokijs": "^1.5.5",
     "morgan": "^1.9.0",
     "nodemon": "^1.18.5",
+    "pg": "^7.7.1",
     "rimraf": "^2.6.2",
-    "sendgrid": "^5.2.3",
-    "babel-cli": "^6.26.0"
+    "sendgrid": "^5.2.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
