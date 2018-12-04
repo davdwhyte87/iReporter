@@ -14,12 +14,13 @@ var _Record = require('../models/Record');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var RecordRouter = _express2.default.Router();
+var recordRouter = _express2.default.Router();
 
-RecordRouter.post('/', (0, _record.validate)('create'), _record.create);
-RecordRouter.get('/', _record.getAll);
-RecordRouter.get('/:id', _record.getSingle);
-RecordRouter.patch('/:id', _record.updateRecord);
-RecordRouter.delete('/:id', _record.deleteRecord);
-exports.default = RecordRouter;
+recordRouter.post('/', (0, _record.validate)('create'), _record.create);
+recordRouter.get('/', _record.getAll);
+recordRouter.get('/:id', _record.getSingle);
+recordRouter.patch('/:id', _record.updateRecord);
+recordRouter.delete('/:id', _record.deleteRecord);
+
+exports.default = recordRouter;
 //# sourceMappingURL=record.js.map
