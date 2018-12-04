@@ -1,0 +1,66 @@
+{
+  "name": "ireporter",
+  "version": "1.0.0",
+  "description": "iReporter enables users  to bring any form of corruption to the notice of appropriate authorities and the general public",
+  "main": ".eslintrc.js",
+  "engines": {
+    "node": "10.13.0"
+  },
+  "scripts": {
+    "start": "npm run build && nodemon server.js --exec babel-node --presets env",
+    "test": "npm run build && mocha dist/test/*.js --exit",
+    "clean": "rimraf dist coverage",
+    "build": "npm run clean && babel -d ./dist ./ -s --ignore node_modules,UI",
+    "start-prod": "npm run build && nodemon ./dist/server.js",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec ./dist/test/*.js --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davdwhyte87/iReporter.git"
+  },
+  "keywords": [
+    "node.js",
+    "Express",
+    "ESlint",
+    "babel"
+  ],
+  "author": "David whyte john",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davdwhyte87/iReporter/issues"
+  },
+  "homepage": "https://github.com/davdwhyte87/iReporter#readme",
+  "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
+    "babel-eslint": "^10.0.1",
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "config": "^2.0.1",
+    "express": "^4.16.3",
+    "express-validator": "^5.3.0",
+    "jsonwebtoken": "^8.3.0",
+    "lokijs": "^1.5.5",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.5",
+    "rimraf": "^2.6.2",
+    "sendgrid": "^5.2.3",
+    "babel-cli": "^6.26.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-watch": "^2.0.7",
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "eslint": "5.5.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.14.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.9"
+  },
+  "directories": {
+    "test": "dist/test"
+  }
+}
