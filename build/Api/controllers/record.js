@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Delete = exports.UpdateRecord = exports.GetSingle = exports.GetAll = exports.create = exports.validate = undefined;
+exports.deleteRecord = exports.updateRecord = exports.getSingle = exports.getAll = exports.create = exports.validate = undefined;
 
 var _check = require('express-validator/check');
 
@@ -30,7 +30,7 @@ var validate = function validate(method) {
     }
 };
 
-var CreateId = function CreateId() {
+var createId = function createId() {
     var id = Math.floor(Math.random() * 90000000000) + 100000000000;
     return id;
 };
@@ -46,13 +46,12 @@ var create = function create(req, res) {
     };
     var errors = _check2.default.validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        console.log(errors.array(true));
         return res.status(404).json({ status: 404, error: errors.array({ onlyFirstError: true }) });
     }
     var record = _Record.Record;
     record.title = req.body.title;
     record.type = req.body.type;
-    record.id = CreateId();
+    record.id = createId();
     record.comment = req.body.comment;
     record.created_on = new Date();
     record.created_by = req.body.created_by;
@@ -63,11 +62,11 @@ var create = function create(req, res) {
     return res.status(200).json({ status: 200, data: record });
 };
 
-var GetAll = function GetAll(req, res) {
+var getAll = function getAll(req, res) {
     return res.status(200).json({ status: 200, data: _Record.DbRecord });
 };
 
-var GetSingle = function GetSingle(req, res) {
+var getSingle = function getSingle(req, res) {
     var RecordId = parseInt(req.params.id, 10);
     var RecordData = void 0;
     _Record.DbRecord.map(function (record) {
@@ -82,47 +81,47 @@ var GetSingle = function GetSingle(req, res) {
     return res.status(404).json({ status: 404, error: 'An error occurred' });
 };
 
-var UpdateRecord = function UpdateRecord(req, res) {
-    var RecordIndex = void 0;
-    var OriginalRecord = void 0;
+var updateRecord = function updateRecord(req, res) {
+    var recordIndex = void 0;
+    var originalRecord = void 0;
     var RecordId = parseInt(req.params.id, 10);
     _Record.DbRecord.map(function (record, index) {
         if (record.id === RecordId) {
-            OriginalRecord = record;
-            RecordIndex = index;
+            originalRecord = record;
+            recordIndex = index;
         }
     });
-    if (!OriginalRecord) {
+    if (!originalRecord) {
         return res.status(404).json({ status: 404, error: 'Record not found' });
     }
-    var UpdateRecordData = _Record.Record;
-    UpdateRecordData.title = req.body.title || OriginalRecord.title;
-    UpdateRecordData.type = req.body.type || OriginalRecord.type;
-    UpdateRecordData.id = OriginalRecord.id;
-    UpdateRecordData.comment = req.body.comment || OriginalRecord.comment;
-    UpdateRecordData.created_on = OriginalRecord.created_on;
-    UpdateRecordData.created_by = OriginalRecord.created_by;
-    UpdateRecordData.image = req.body.image || OriginalRecord.image;
-    UpdateRecordData.location = req.body.location || OriginalRecord.location;
-    UpdateRecordData.status = req.body.status || OriginalRecord.status;
-    _Record.DbRecord.splice(RecordIndex, 1, UpdateRecordData);
+    var updateRecordData = _Record.Record;
+    updateRecordData.title = req.body.title || originalRecord.title;
+    updateRecordData.type = req.body.type || originalRecord.type;
+    updateRecordData.id = originalRecord.id;
+    updateRecordData.comment = req.body.comment || originalRecord.comment;
+    updateRecordData.created_on = originalRecord.created_on;
+    updateRecordData.created_by = originalRecord.created_by;
+    updateRecordData.image = req.body.image || originalRecord.image;
+    updateRecordData.location = req.body.location || originalRecord.location;
+    updateRecordData.status = req.body.status || originalRecord.status;
+    _Record.DbRecord.splice(recordIndex, 1, updateRecordData);
 
-    return res.status(200).json({ status: 200, data: [{ id: UpdateRecordData.id, message: 'Updated Record' }] });
+    return res.status(200).json({ status: 200, data: [{ id: updateRecordData.id, message: 'Updated Record' }] });
 };
 
-var Delete = function Delete(req, res) {
-    var RecordId = parseInt(req.params.id, 10);
-    var RecordData = void 0;
-    var ID = void 0;
+var deleteRecord = function deleteRecord(req, res) {
+    var recordId = parseInt(req.params.id, 10);
+    var recordData = void 0;
+    var originalRecordId = void 0;
     _Record.DbRecord.map(function (record, index) {
-        if (record.id === RecordId) {
-            RecordData = record;
-            ID = RecordData.id;
+        if (record.id === recordId) {
+            recordData = record;
+            originalRecordId = recordData.id;
             _Record.DbRecord.splice(index, 1);
-            return res.status(200).json({ status: 200, data: [{ id: ID, message: 'Record deleted' }] });
+            return res.status(200).json({ status: 200, data: [{ id: originalRecordId, message: 'Record deleted' }] });
         }
     });
-    if (!RecordData) {
+    if (!recordData) {
         return res.status(404).json({ status: 404, error: 'Data not found' });
     }
     return res.status(404).json({ status: 404, error: 'An error occurred' });
@@ -130,8 +129,8 @@ var Delete = function Delete(req, res) {
 
 exports.validate = validate;
 exports.create = create;
-exports.GetAll = GetAll;
-exports.GetSingle = GetSingle;
-exports.UpdateRecord = UpdateRecord;
-exports.Delete = Delete;
+exports.getAll = getAll;
+exports.getSingle = getSingle;
+exports.updateRecord = updateRecord;
+exports.deleteRecord = deleteRecord;
 //# sourceMappingURL=record.js.map

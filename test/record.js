@@ -7,7 +7,7 @@ const should=chai.should();
 let ExampleRecordId=null;
 
 describe('Tests for records ', () => {
-    it('It should create a record', (done) => {
+    it('should create a record', (done) => {
         let record={
             title: 'We need water in apata!',
             type: 'intervention ',
@@ -25,7 +25,7 @@ describe('Tests for records ', () => {
             done();
         });
     });
-    it('It should not create a record if the data is missing', (done) => {
+    it('should not create a record if the data is missing', (done) => {
         let record={
             title: 'We need water in apata!',
             comment: 'tsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad k',
@@ -40,7 +40,7 @@ describe('Tests for records ', () => {
             done();
         });
     });
-    it('It should not create a record if the title is too short', (done) => {
+    it('should not create a record if the title is too short', (done) => {
         let record={
             title: 'We!',
             type: 'intervention ',
@@ -58,7 +58,7 @@ describe('Tests for records ', () => {
         });
     });
 
-    it('It should get all the records in the database', (done) => {
+    it('should get all the records in the database', (done) => {
         chai.request(app).get('/api/v1/record')
         .end((err, res) => {
             res.should.have.status(200);
@@ -69,7 +69,7 @@ describe('Tests for records ', () => {
         });
     });
 
-    it('It should get a single record', (done) => {
+    it('should get a single record', (done) => {
         chai.request(app).get('/api/v1/record/'+ExampleRecordId)
         .end((err, res) => {
             res.should.have.status(200);
@@ -79,7 +79,7 @@ describe('Tests for records ', () => {
             done();
         });
     });
-    it('It should not get a single record if it does not exists', (done) => {
+    it('should not get a single record if it does not exists', (done) => {
         chai.request(app).get('/api/v1/record/'+ExampleRecordId+99302)
         .end((err, res) => {
             res.should.have.status(404);
@@ -89,7 +89,7 @@ describe('Tests for records ', () => {
         });
     });
     // testing update functionalty
-    it('It should update a record', (done) => {
+    it('should update a record', (done) => {
         let record={
             title: 'We need water in apata!',
             type: 'intervention ',
@@ -106,7 +106,7 @@ describe('Tests for records ', () => {
         });
     });
 
-    it('It should not update a record if the id is wrong', (done) => {
+    it('should not update a record if the id is wrong', (done) => {
         let record={
             title: 'We need water in apata!',
             type: 'intervention ',
@@ -123,7 +123,7 @@ describe('Tests for records ', () => {
         });
     });
 
-    it('It should update a record (just title and status and add location', (done) => {
+    it('should update a record (just title and status and add location', (done) => {
         let record={
             title: 'We need water in apata!',
             location: '172.39, 293.289',
@@ -138,7 +138,7 @@ describe('Tests for records ', () => {
         });
     });
     // tests for deleting record
-    it('It should delete a record', (done) => {
+    it('should delete a record', (done) => {
         chai.request(app).del('/api/v1/record/'+ExampleRecordId)
         .end((err, res) => {
             res.should.have.status(200);
@@ -148,7 +148,7 @@ describe('Tests for records ', () => {
         });
     });
 
-    it('It should not delete a record if the id is wrong', (done) => {
+    it('should not delete a record if the id is wrong', (done) => {
         chai.request(app).del('/api/v1/record/'+ExampleRecordId+93838)
         .end((err, res) => {
             res.should.have.status(404);
