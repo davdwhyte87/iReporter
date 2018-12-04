@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section>
+        <nav class="navbar" id="navbar">
+            <a href="#" onclick="toggleNav()" class="nav-mobile">☰ menu</a>
+            <ul id="l-nav">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="records.html">Records</a></li>
+                <li><a href="create-record.html">Create report</a></li>
+                <li><a href="sign-in.html">Signin</a></li>
+                <li><a href="sign-up.html">Signup</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+            <ul id="r-nav">
+                <li><a href="#">Logout <i class="fa fa-fw fa-sign-out"></i> </a></li>
+            </ul>
+        </nav>
+    </section>
+    <section class="records">
+        <div class="card col-3">
+            <p class="record-status">Status: Draft <a href=""><i class="fa fa-fw fa-edit"></i></a></p> 
+            <img class="record-image" src="./img/rec1.jpg"/>
+            <a href="single-record.html" class="record-title">Hellen is alive?</a>
+            <div class="record-actions">
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-edit "></i></a>
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="card col-3">
+            <p class="record-status">Status: Draft <a href=""><i class="fa fa-fw fa-edit"></i></a></p> 
+            <img class="record-image" src="./img/rec1.jpg"/>
+            <a href="single-record.html" class="record-title">Hellen is alive?</a>
+            <div class="record-actions">
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-edit "></i></a>
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="card col-3">
+            <p class="record-status">Status: Draft <a href=""><i class="fa fa-fw fa-edit"></i></a></p> 
+            <img class="record-image" src="./img/rec1.jpg"/>
+            <a href="single-record.html" class="record-title">Hellen is alive?</a>
+            <div class="record-actions">
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-edit "></i></a>
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-trash"></i></a>
+            </div>
+        </div>
+        <div class="card col-3">
+            <p class="record-status">Status: Draft <a href=""><i class="fa fa-fw fa-edit"></i></a></p> 
+            <img class="record-image" src="./img/rec1.jpg"/>
+            <a href="single-record.html" class="record-title">Hellen is alive?</a>
+            <div class="record-actions">
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-edit "></i></a>
+                <a href="edit-record.html" class="rc"><i class="fa fa-fw fa-trash"></i></a>
+            </div>
+        </div>
+    </section>
+</body>
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+<script src="./js/app.js"></script>
+</html>
