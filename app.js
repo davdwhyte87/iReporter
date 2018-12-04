@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 // application routes import
-import RecordRouter from './Api/routes/record';
+import RecordRouter from './api/routes/record';
 const app=express();
 app.use(expressValidator());
 app.use((req, res, next) => {

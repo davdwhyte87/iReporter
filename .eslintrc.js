@@ -7,12 +7,15 @@ module.exports = {
         "space-infix-ops":["off"],
         "no-unused-vars":['off'],
         "indent":["off"],
-        "no-undef":["off"],
-        "prefer-const":["off"],
         "prefer-template":["off"],
         "arrow-body-style":["off"],
         "object-curly-newline":["off"],
         "array-callback-return":["off"],
-        "consistent-return":["off"]
+        "consistent-return":["off"],
+        "prefer-destructuring": ["off", {
+            "array": false,
+            "object": true
+          }
+        ]
     }
 };

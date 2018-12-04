@@ -20,7 +20,7 @@ var _expressValidator = require('express-validator');
 
 var _expressValidator2 = _interopRequireDefault(_expressValidator);
 
-var _record = require('./Api/routes/record');
+var _record = require('./api/routes/record');
 
 var _record2 = _interopRequireDefault(_record);
 

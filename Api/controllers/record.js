@@ -34,23 +34,22 @@ const validate=(method) => {
     }
 };
 
-const CreateId=() => {
-    let id =Math.floor(Math.random()*90000000000) + 100000000000;
+const createId=() => {
+    const id =Math.floor(Math.random()*90000000000) + 100000000000;
     return id;
 };
 const create=(req, res) => {
     const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
         return msg;
       };
-    let errors=check.validationResult(req).formatWith(errorFormatter);
+    const errors=check.validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        console.log(errors.array(true));
         return res.status(404).json({ status: 404, error: errors.array({ onlyFirstError: true }) });
     }
-    let record=Record;
+    const record=Record;
     record.title=req.body.title;
     record.type=req.body.type;
-    record.id= CreateId();
+    record.id= createId();
     record.comment= req.body.comment;
     record.created_on= new Date();
     record.created_by= req.body.created_by;
@@ -61,11 +60,11 @@ const create=(req, res) => {
     return res.status(200).json({ status: 200, data: record });
 };
 
-const GetAll=(req, res) => {
+const getAll=(req, res) => {
     return res.status(200).json({ status: 200, data: DbRecord });
 };
 
-const GetSingle=(req, res) => {
+const getSingle=(req, res) => {
     const RecordId=parseInt(req.params.id, 10);
     let RecordData;
     DbRecord.map((record) => {
@@ -80,50 +79,50 @@ const GetSingle=(req, res) => {
     return res.status(404).json({ status: 404, error: 'An error occurred' });
 };
 
-const UpdateRecord=(req, res) => {
-    let RecordIndex;
-    let OriginalRecord;
+const updateRecord=(req, res) => {
+    let recordIndex;
+    let originalRecord;
     const RecordId=parseInt(req.params.id, 10);
     DbRecord.map((record, index) => {
         if (record.id===RecordId) {
-            OriginalRecord=record;
-            RecordIndex=index;
+            originalRecord=record;
+            recordIndex=index;
         }
     });
-    if (!OriginalRecord) {
+    if (!originalRecord) {
         return res.status(404).json({ status: 404, error: 'Record not found' });
     }
-    let UpdateRecordData=Record;
-    UpdateRecordData.title=req.body.title || OriginalRecord.title;
-    UpdateRecordData.type=req.body.type || OriginalRecord.type;
-    UpdateRecordData.id= OriginalRecord.id;
-    UpdateRecordData.comment= req.body.comment || OriginalRecord.comment;
-    UpdateRecordData.created_on= OriginalRecord.created_on;
-    UpdateRecordData.created_by= OriginalRecord.created_by;
-    UpdateRecordData.image= req.body.image || OriginalRecord.image;
-    UpdateRecordData.location= req.body.location || OriginalRecord.location;
-    UpdateRecordData.status= req.body.status || OriginalRecord.status;
-    DbRecord.splice(RecordIndex, 1, UpdateRecordData);
+    const updateRecordData=Record;
+    updateRecordData.title=req.body.title || originalRecord.title;
+    updateRecordData.type=req.body.type || originalRecord.type;
+    updateRecordData.id= originalRecord.id;
+    updateRecordData.comment= req.body.comment || originalRecord.comment;
+    updateRecordData.created_on= originalRecord.created_on;
+    updateRecordData.created_by= originalRecord.created_by;
+    updateRecordData.image= req.body.image || originalRecord.image;
+    updateRecordData.location= req.body.location || originalRecord.location;
+    updateRecordData.status= req.body.status || originalRecord.status;
+    DbRecord.splice(recordIndex, 1, updateRecordData);
 
-    return res.status(200).json({ status: 200, data: [{ id: UpdateRecordData.id, message: 'Updated Record' }] });
+    return res.status(200).json({ status: 200, data: [{ id: updateRecordData.id, message: 'Updated Record' }] });
 };
 
-const Delete=(req, res) => {
-    const RecordId=parseInt(req.params.id, 10);
-    let RecordData;
-    let ID;
+const deleteRecord = (req, res) => {
+    const recordId=parseInt(req.params.id, 10);
+    let recordData;
+    let originalRecordId;
     DbRecord.map((record, index) => {
-        if (record.id===RecordId) {
-            RecordData=record;
-            ID=RecordData.id;
+        if (record.id===recordId) {
+            recordData=record;
+            originalRecordId=recordData.id;
             DbRecord.splice(index, 1);
-            return res.status(200).json({ status: 200, data: [{ id: ID, message: 'Record deleted' }] });
+            return res.status(200).json({ status: 200, data: [{ id: originalRecordId, message: 'Record deleted' }] });
         }
     });
-    if (!RecordData) {
+    if (!recordData) {
         return res.status(404).json({ status: 404, error: 'Data not found' });
     }
     return res.status(404).json({ status: 404, error: 'An error occurred' });
 };
 
-export { validate, create, GetAll, GetSingle, UpdateRecord, Delete };
+export { validate, create, getAll, getSingle, updateRecord, deleteRecord };

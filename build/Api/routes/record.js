@@ -17,9 +17,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var RecordRouter = _express2.default.Router();
 
 RecordRouter.post('/', (0, _record.validate)('create'), _record.create);
-RecordRouter.get('/', _record.GetAll);
-RecordRouter.get('/:id', _record.GetSingle);
-RecordRouter.patch('/:id', _record.UpdateRecord);
-RecordRouter.delete('/:id', _record.Delete);
+RecordRouter.get('/', _record.getAll);
+RecordRouter.get('/:id', _record.getSingle);
+RecordRouter.patch('/:id', _record.updateRecord);
+RecordRouter.delete('/:id', _record.deleteRecord);
 exports.default = RecordRouter;
 //# sourceMappingURL=record.js.map

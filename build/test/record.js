@@ -19,7 +19,7 @@ var should = _chai2.default.should();
 var ExampleRecordId = null;
 
 describe('Tests for records ', function () {
-    it('It should create a record', function (done) {
+    it('should create a record', function (done) {
         var record = {
             title: 'We need water in apata!',
             type: 'intervention ',
@@ -36,7 +36,7 @@ describe('Tests for records ', function () {
             done();
         });
     });
-    it('It should not create a record if the data is missing', function (done) {
+    it('should not create a record if the data is missing', function (done) {
         var record = {
             title: 'We need water in apata!',
             comment: 'tsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad ktsgshh sjhkaj hkaj hkah ka hdkja sdhkja dhkja dhka dhkaj jkadjad k',
@@ -50,7 +50,7 @@ describe('Tests for records ', function () {
             done();
         });
     });
-    it('It should not create a record if the title is too short', function (done) {
+    it('should not create a record if the title is too short', function (done) {
         var record = {
             title: 'We!',
             type: 'intervention ',
@@ -67,7 +67,7 @@ describe('Tests for records ', function () {
         });
     });
 
-    it('It should get all the records in the database', function (done) {
+    it('should get all the records in the database', function (done) {
         _chai2.default.request(_app2.default).get('/api/v1/record').end(function (err, res) {
             res.should.have.status(200);
             res.should.be.a('object');
@@ -77,7 +77,7 @@ describe('Tests for records ', function () {
         });
     });
 
-    it('It should get a single record', function (done) {
+    it('should get a single record', function (done) {
         _chai2.default.request(_app2.default).get('/api/v1/record/' + ExampleRecordId).end(function (err, res) {
             res.should.have.status(200);
             res.should.be.a('object');
@@ -86,7 +86,7 @@ describe('Tests for records ', function () {
             done();
         });
     });
-    it('It should not get a single record if it does not exists', function (done) {
+    it('should not get a single record if it does not exists', function (done) {
         _chai2.default.request(_app2.default).get('/api/v1/record/' + ExampleRecordId + 99302).end(function (err, res) {
             res.should.have.status(404);
             res.should.be.a('object');
@@ -95,7 +95,7 @@ describe('Tests for records ', function () {
         });
     });
     // testing update functionalty
-    it('It should update a record', function (done) {
+    it('should update a record', function (done) {
         var record = {
             title: 'We need water in apata!',
             type: 'intervention ',
@@ -111,7 +111,7 @@ describe('Tests for records ', function () {
         });
     });
 
-    it('It should not update a record if the id is wrong', function (done) {
+    it('should not update a record if the id is wrong', function (done) {
         var record = {
             title: 'We need water in apata!',
             type: 'intervention ',
@@ -127,7 +127,7 @@ describe('Tests for records ', function () {
         });
     });
 
-    it('It should update a record (just title and status and add location', function (done) {
+    it('should update a record (just title and status and add location', function (done) {
         var record = {
             title: 'We need water in apata!',
             location: '172.39, 293.289',
@@ -141,7 +141,7 @@ describe('Tests for records ', function () {
         });
     });
     // tests for deleting record
-    it('It should delete a record', function (done) {
+    it('should delete a record', function (done) {
         _chai2.default.request(_app2.default).del('/api/v1/record/' + ExampleRecordId).end(function (err, res) {
             res.should.have.status(200);
             res.body.should.be.a('object');
@@ -150,7 +150,7 @@ describe('Tests for records ', function () {
         });
     });
 
-    it('It should not delete a record if the id is wrong', function (done) {
+    it('should not delete a record if the id is wrong', function (done) {
         _chai2.default.request(_app2.default).del('/api/v1/record/' + ExampleRecordId + 93838).end(function (err, res) {
             res.should.have.status(404);
             res.body.should.be.a('object');
