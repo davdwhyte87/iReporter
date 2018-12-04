@@ -5,7 +5,6 @@ body {
 
 }
 
-
 #auth {
 	background-image: url('https://www.google.com.ng/search?q=black+background&rlz=1C1CHBF_enNG802NG802&tbm=isch&source=iu&ictx=1&fir=0jlFcUAbJ-_xvM%253A%252CsOgOvVzAoKlDPM%252C_&usg=AI4_-kQOxdpVK4Byg_yEVXC2sy3ALKf-uw&sa=X&ved=2ahUKEwirzbfz8IPfAhUDzKQKHftZDzoQ9QEwBHoECAAQDA#');
 	background-attachment: fixed;
@@ -467,7 +466,6 @@ body {
 	padding: 0 30px;
   }
 
-
 .hero>h2 {
 	  font-size: 55px;
 	  text-align: center;
@@ -481,7 +479,6 @@ body {
 	font-weight: bold;
 	padding: 10px;
   }
-
 .navbar.responsive ul {
 	float: none;
     display: block;
