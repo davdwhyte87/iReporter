@@ -1,7 +1,12 @@
+body{
+margin: 0px;
+}
 .records{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
+    /* justify-content: flex-start; */
 }
 .card{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -11,9 +16,26 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    padding: 1px;
+    margin: 10px;
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.record-title{
+    color: black;
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.card a{
+    color: black;
 }
 .record-status{
     font-size: 20px;
@@ -59,8 +81,13 @@ ul{
     list-style: none;
 }
 
-@media only screen and (max-width: 720px){
-.card{
-    width: 100%;
+.spx{
+    height: 1cm;
 }
+
+
+@media only screen and (max-width: 720px){
+    .card{
+        width: 100%;
+    }
 }
