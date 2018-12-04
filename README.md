@@ -1,4 +1,10 @@
 # iReporter
+
+[![Build Status](https://travis-ci.org/davdwhyte87/iReporter.svg?branch=api_get_records)](https://travis-ci.org/davdwhyte87/iReporter)
+[![Coverage Status](https://coveralls.io/repos/github/davdwhyte87/iReporter/badge.svg?branch=api_get_records&service=github)](https://coveralls.io/github/davdwhyte87/iReporter?branch=api_get_records&service=github)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6d3c17678ddc23f0d8eb/maintainability)](https://codeclimate.com/github/davdwhyte87/iReporter/maintainability)
+
+
 iReporter enables users  to bring any form of corruption to the notice of appropriate authorities and the general public
 
 
@@ -8,6 +14,9 @@ iReporter enables users  to bring any form of corruption to the notice of approp
 * [Features](#Features)
 * [Built with](#built-with)
 * [Known Issues](#Known-issues)
+* [Installation](#Installation)
+* [Contributing](#Contributing)
+* [Api Endpoints](#Api-Endpoints)
 
 
 ## Project Overview
@@ -37,12 +46,33 @@ resolved).
 - `Node.js`
 - `Express framework`
 
-
+## Api Endpoints
+- `GET /api/v1/record` - Fetches all the records
+- `GET /api/v1/record/:id` - Fetches a single record
+- `POST /api/v1/record` - Creates a record
+- `PATCH /api/v1/record/:id` - Edits a record
+- `DELETE /api/v1/record/:id` - Deletes a record
  
  ## Known issues
 - The views are just built out, they have no functionalities yet
 
 
+## Installation
+
+- $ git clone 'https://github.com/davdwhyte87/iReporter'
+- $ cd iReporter
+- $ npm i , to install dependencies
+- $ npm start, to start the server
+Once the server starts-up, you can query the api at 'http://localhost:3000/api/v1' using the end points stated above.
+
+## Contributing
+>  Feel free to 🍴 fork this repository
+
+>  👯 Clone this repository to your local machine using 'https://github.com/davdwhyte87/iReporter'
+
+> Make Contributions
+
+> 🔃 Create a new pull request using 'https://github.com/davdwhyte87/iReporter./compare'
 
 
 ## License
