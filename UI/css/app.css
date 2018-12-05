@@ -73,18 +73,26 @@ margin: 0px;
 .xm{
     width:100%;
 }
-.rc-text{
+.rc-text {
     padding: 20px;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
-.spx{
+.spx {
     height: 1cm;
 }
 
+ul li {
+    padding: 10px;
+}
+
+.profile-details{
+    font-weight: 600;
+    font-size: 19px;
+}
 
 @media only screen and (max-width: 720px){
     .card{
