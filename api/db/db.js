@@ -1,7 +1,6 @@
 import { Pool } from 'pg';
-import config from '../../config';
+import config from 'config';
 
-console.log(config.DB_URL);
 const pool=new Pool({ connectionString: config.DB_URL });
 pool.on('connect', () => {
     console.log('connected');
