@@ -2,6 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
+import dotenv from 'dotenv';
+import config from 'config';
 // application routes import
 import recordRouter from './api/routes/record';
 const app=express();

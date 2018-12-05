@@ -1,13 +1,18 @@
 language: node_js
 node_js:
   - "10.13.0"
+services: 
+- postgres
 
 script:
   - npm run build
   - npm run coverage
 
 before_install:
-  - npm i -g babel-preset-env mocha chai babel-cli istanbul coveralls
+  - npm i -g babel-preset-env mocha chai babel-cli istanbul coveralls pg
+
+before_script:
+  - psql -c 'create database  ireporter;' -U postgres
 
 after_script:
   - ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info  && npm run clean
