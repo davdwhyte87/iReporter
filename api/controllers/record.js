@@ -60,6 +60,7 @@ const create=(req, res) => {
         return res.status(200).json({ status: 200, data: record });
     })
     .catch((error) => {
+        console.log(error);
         return res.status(404).json({ status: 404, error: 'An error occurred' });
     });
 };
