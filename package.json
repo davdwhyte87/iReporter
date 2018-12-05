@@ -25,7 +25,8 @@
     "build": "npm run clean && babel -d ./dist ./ -s --ignore node_modules,UI",
     "start-prod": "npm run build && nodemon ./dist/server.js",
     "coverage": "npm run create-db && istanbul cover  ./node_modules/mocha/bin/_mocha -- -R spec ./dist/test/*.js --exit",
-    "create-db": "npm run build && node dist/api/db/db.js"
+    "create-db": "npm run build && node dist/api/db/db.js",
+    "heroku-postbuild": "npm run create-db"
   },
   "repository": {
     "type": "git",
