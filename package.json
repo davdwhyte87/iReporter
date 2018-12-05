@@ -1,6 +1,18 @@
 {
   "name": "ireporter",
   "version": "1.0.0",
+  "standard": {
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect"
+    ]
+  },
   "description": "iReporter enables users  to bring any form of corruption to the notice of appropriate authorities and the general public",
   "main": ".eslintrc.js",
   "engines": {

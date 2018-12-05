@@ -1,5 +1,5 @@
 import check from 'express-validator/check';
-import { Record, DbRecord, createRecordDB } from '../models/Record';
+import { Record, DbRecord, createRecordDB, getAllRecordsDB, getSingleRecordDB, updateRecordsDB } from '../models/Record';
 
 const validate=(method) => {
     switch (method) {
@@ -25,7 +25,6 @@ const validate=(method) => {
                 .exists().isString().isLength({ min: 3 }),
                 check.body('created_by', 'User Id is needed').exists().isInt(),
                 check.body('status', 'A defualt status is required').exists().isString(),
-                check.body('location', 'Location is not valid').isString(),
             ];
         }
         default: {
@@ -58,7 +57,6 @@ const create=(req, res) => {
     record.status= 0;
     DbRecord.push(record);
     createRecordDB(record).then((data) => {
-        console.log(data);
         return res.status(200).json({ status: 200, data: record });
     })
     .catch((error) => {
@@ -67,50 +65,55 @@ const create=(req, res) => {
 };
 
 const getAll=(req, res) => {
-    return res.status(200).json({ status: 200, data: DbRecord });
+    getAllRecordsDB().then((data) => {
+        return res.status(200).json({ status: 200, data: data.rows });
+    })
+    .catch((error) => {
+        return res.status(404).json({ status: 404, error: 'An error occurred' });
+    });
+    // return res.status(200).json({ status: 200, data: DbRecord });
 };
 
 const getSingle=(req, res) => {
-    const RecordId=parseInt(req.params.id, 10);
+    const recordId=parseInt(req.params.id, 10);
     let RecordData;
-    DbRecord.map((record) => {
-        if (record.id===RecordId) {
-            RecordData=record;
-            return res.status(200).json({ status: 200, data: record });
+    getSingleRecordDB([recordId]).then((data) => {
+        if (data.rowCount===0) {
+            return res.status(404).json({ status: 404, error: 'This record does not exist' });
         }
+        return res.status(200).json({ status: 200, data: data.rows });
+    })
+    .catch((error) => {
+        return res.status(404).json({ status: 404, error: 'An error occurred' });
     });
-    if (!RecordData) {
-        return res.status(404).json({ status: 404, error: 'Data not found' });
-    }
-    return res.status(404).json({ status: 404, error: 'An error occurred' });
 };
 
 const updateRecord=(req, res) => {
     let recordIndex;
     let originalRecord;
-    const RecordId=parseInt(req.params.id, 10);
-    DbRecord.map((record, index) => {
-        if (record.id===RecordId) {
-            originalRecord=record;
-            recordIndex=index;
+    const recordId=parseInt(req.params.id, 10);
+    getSingleRecordDB([recordId]).then((data) => {
+        if (data.rowCount===0) {
+            return res.status(404).json({ status: 404, error: 'Record not found' });
         }
+        originalRecord=data.rows[0];
+        const updateRecordData= Record;
+        updateRecordData.title= req.body.title || originalRecord.title;
+        updateRecordData.type= req.body.type || originalRecord.type;
+        updateRecordData.id= originalRecord.id;
+        updateRecordData.comment= req.body.comment || originalRecord.comment;
+        updateRecordData.created_on= originalRecord.created_on;
+        updateRecordData.created_by= originalRecord.created_by;
+        updateRecordData.image= req.body.image || originalRecord.image;
+        updateRecordData.location= req.body.location || originalRecord.location;
+        updateRecordData.status= req.body.status || originalRecord.status;
+        updateRecordsDB(updateRecordData).then((result) => {
+            return res.status(200).json({ status: 200, data: data.rows });
+        })
+        .catch((error) => {
+            return res.status(404).json({ status: 404, error: 'Record not found' });
+        });
     });
-    if (!originalRecord) {
-        return res.status(404).json({ status: 404, error: 'Record not found' });
-    }
-    const updateRecordData=Record;
-    updateRecordData.title=req.body.title || originalRecord.title;
-    updateRecordData.type=req.body.type || originalRecord.type;
-    updateRecordData.id= originalRecord.id;
-    updateRecordData.comment= req.body.comment || originalRecord.comment;
-    updateRecordData.created_on= originalRecord.created_on;
-    updateRecordData.created_by= originalRecord.created_by;
-    updateRecordData.image= req.body.image || originalRecord.image;
-    updateRecordData.location= req.body.location || originalRecord.location;
-    updateRecordData.status= req.body.status || originalRecord.status;
-    DbRecord.splice(recordIndex, 1, updateRecordData);
-
-    return res.status(200).json({ status: 200, data: [{ id: updateRecordData.id, message: 'Updated Record' }] });
 };
 
 const deleteRecord = (req, res) => {
