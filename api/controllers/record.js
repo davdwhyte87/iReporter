@@ -1,5 +1,10 @@
 import check from 'express-validator/check';
-import { Record, DbRecord, createRecordDB, getAllRecordsDB, getSingleRecordDB, updateRecordsDB } from '../models/Record';
+import { Record,
+     DbRecord,
+     createRecordDB,
+     getAllRecordsDB,
+     getSingleRecordDB,
+     updateRecordsDB, deleteRecordDB } from '../models/Record';
 
 const validate=(method) => {
     switch (method) {
@@ -37,7 +42,18 @@ const createId=() => {
     const id =Math.floor(Math.random()*90000000000) + 100000000000;
     return id;
 };
+
+const checkIfRedFlag= (req) => {
+    const redFlag='red-flag';
+    const myPattern = new RegExp('(\\w*'+redFlag+'\\w*)', 'gi');
+    const matches = String(req.originalUrl).match(myPattern);
+    if (matches) {
+        return true;
+    }
+    return false;
+};
 const create=(req, res) => {
+    let type; // 0 for red flag 1 for intervention
     const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
         return msg;
       };
@@ -45,16 +61,21 @@ const create=(req, res) => {
     if (!errors.isEmpty()) {
         return res.status(404).json({ status: 404, error: errors.array({ onlyFirstError: true }) });
     }
+    if (checkIfRedFlag(req)) {
+        type='red-flag';
+    } else {
+        type='intervention';
+    }
     const record=Record;
     record.title=req.body.title;
-    record.type=req.body.type;
+    record.type=type;
     record.id= createId();
     record.comment= req.body.comment;
     record.created_on= new Date();
     record.created_by= req.body.created_by;
     record.image= req.body.image;
     record.location= req.body.location;
-    record.status= 0;
+    record.status= 'draft';
     DbRecord.push(record);
     createRecordDB(record).then((data) => {
         return res.status(200).json({ status: 200, data: record });
@@ -66,7 +87,13 @@ const create=(req, res) => {
 };
 
 const getAll=(req, res) => {
-    getAllRecordsDB().then((data) => {
+    let type;
+    if (checkIfRedFlag(req)) {
+        type='red-flag';
+    } else {
+        type='intervention';
+    }
+    getAllRecordsDB([type]).then((data) => {
         return res.status(200).json({ status: 200, data: data.rows });
     })
     .catch((error) => {
@@ -112,27 +139,19 @@ const updateRecord=(req, res) => {
             return res.status(200).json({ status: 200, data: data.rows });
         })
         .catch((error) => {
-            return res.status(404).json({ status: 404, error: 'Record not found' });
+            return res.status(404).json({ status: 404, error: 'An error occurred' });
         });
     });
 };
 
 const deleteRecord = (req, res) => {
     const recordId=parseInt(req.params.id, 10);
-    let recordData;
-    let originalRecordId;
-    DbRecord.map((record, index) => {
-        if (record.id===recordId) {
-            recordData=record;
-            originalRecordId=recordData.id;
-            DbRecord.splice(index, 1);
-            return res.status(200).json({ status: 200, data: [{ id: originalRecordId, message: 'Record deleted' }] });
-        }
+    deleteRecordDB([recordId]).then((data) => {
+        return res.status(200).json({ status: 200, data: data.rows });
+    })
+    .catch((error) => {
+        return res.status(404).json({ status: 404, error: 'An error occurred' });
     });
-    if (!recordData) {
-        return res.status(404).json({ status: 404, error: 'Data not found' });
-    }
-    return res.status(404).json({ status: 404, error: 'An error occurred' });
 };
 
 export { validate, create, getAll, getSingle, updateRecord, deleteRecord };
