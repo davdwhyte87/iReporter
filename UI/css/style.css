@@ -126,6 +126,10 @@ body {
 	
 }
 
+.nav-name{
+	color: #03a9f4 !important;
+}
+
 #app-forms-bg {
 	background-image: url('../img/app-bg.jpeg');
 	background-size: cover;
