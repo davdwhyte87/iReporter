@@ -17,7 +17,7 @@ const createTables = () => {
         created_by integer NOT NULL,
         type varchar(100) NOT NULL,
         location varchar(100),
-        status integer,
+        status varchar(100),
         image TEXT
     );
     `;

@@ -46,12 +46,23 @@ resolved).
 - `Node.js`
 - `Express framework`
 
+## UI link (Gh-pages): 
+ `https://davdwhyte87.github.io/iReporter/UI/`
+
+ ## Pivotal Tracker board
+ `https://www.pivotaltracker.com/n/projects/2226785`
+
 ## Api Endpoints
-- `GET /api/v1/record` - Fetches all the records
-- `GET /api/v1/record/:id` - Fetches a single record
-- `POST /api/v1/record` - Creates a record
-- `PATCH /api/v1/record/:id` - Edits a record
-- `DELETE /api/v1/record/:id` - Deletes a record
+- `GET /api/v1/red-flag` - Fetches all the red-flag records
+- `GET /api/v1/intervention` - Fetches all the intervention records
+- `GET /api/v1/red-flag/:id` - Fetches a single record
+- `GET /api/v1/intervention/:id` - Fetches a single record
+- `POST /api/v1/red-flag` - Creates a red-flag record
+- `POST /api/v1/intervention` - Creates an intervention record
+- `PATCH /api/v1/red-flag/:id` - Edits a red-flag record
+- `PATCH /api/v1/intervention/:id` - Edits an intervention record
+- `DELETE /api/v1/red-flag/:id` - Deletes a red-flag record
+- `DELETE /api/v1/intervention/:id` - Deletes an intervention record
  
  ## Known issues
 - The views are just built out, they have no functionalities yet

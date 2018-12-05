@@ -28,11 +28,11 @@ const createRecordDB = async (record) => {
     return pool.query(createQuery, values);
 };
 
-const getAllRecordsDB= async () => {
+const getAllRecordsDB= async (selector) => {
     const getRecordsQuery=`
-    SELECT * FROM records 
+    SELECT * FROM records WHERE type=$1 
     `;
-    return pool.query(getRecordsQuery);
+    return pool.query(getRecordsQuery, selector);
 };
 
 const getSingleRecordDB= async (selector) => {
@@ -51,5 +51,13 @@ const updateRecordsDB= async (record) => {
     return pool.query(Query, values);
 };
 
+const deleteRecordDB= async (selector) => {
+    const Query=`
+    DELETE FROM records WHERE id=$1 
+    `;
+    return pool.query(Query, selector);
+};
 
-export { Record, DbRecord, createRecordDB, getAllRecordsDB, getSingleRecordDB, updateRecordsDB };
+
+export { Record, DbRecord, createRecordDB, getAllRecordsDB,
+     getSingleRecordDB, updateRecordsDB, deleteRecordDB };
