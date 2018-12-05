@@ -17,7 +17,7 @@ const Record={
     image: String,
 };
 const DbRecord=[];
-const createRecordDB= async (record) => {
+const createRecordDB = async (record) => {
     const createQuery=`
     INSERT INTO records ("id","title","comment","created_on","created_by","type","location","status","image")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9);
