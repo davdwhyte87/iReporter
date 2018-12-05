@@ -50,4 +50,5 @@ const updateRecordsDB= async (record) => {
     return pool.query(Query, values);
 };
 
+
 export { Record, DbRecord, createRecordDB, getAllRecordsDB, getSingleRecordDB, updateRecordsDB };

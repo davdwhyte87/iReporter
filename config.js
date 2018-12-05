@@ -1,5 +1,5 @@
 const dev= {
-    DB_URL: 'postgresql://postgres:hataguy@localhost:5432/haita',
+    DB_URL: 'postgresql://postgres:hataguy@localhost:5432/ireporter',
 };
 
 const prod={

@@ -32,9 +32,6 @@ const createTables = () => {
     pool.query(finalQueryCreate).then((res) => {
         console.log(res);
     });
-    pool.query(finalQuerySeed).then((res) => {
-        console.log(res);
-    });
     pool.end();
 };
 
