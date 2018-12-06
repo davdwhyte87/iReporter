@@ -31,4 +31,11 @@ const getSingleUserDB = (selector) => {
     return pool.query(Query, selector);
 };
 
-export { createUserDB, User, getSingleUserDB };
+const getSingleUserByIdDB = (selector) => {
+    const Query=`
+    SELECT * FROM users WHERE id=$1 
+    `;
+    return pool.query(Query, selector);
+};
+
+export { createUserDB, User, getSingleUserDB, getSingleUserByIdDB };

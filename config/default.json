@@ -1,5 +1,6 @@
 {
     "DB_URL": "postgresql://postgres:hataguy@localhost:5432/ireporter",
     "JWT": "ULENMSMMKKKSJKHSHJ09089897878HJJHSUUSHJSHJNNBCNNBSHSKMSKSJ",
-    "ADMIN_EMAIL": "adminIreporter@gmail.com"
+    "ADMIN_EMAIL": "adminIreporter@gmail.com",
+    "SENDGRID_API_KEY": "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"
 }
