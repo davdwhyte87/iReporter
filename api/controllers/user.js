@@ -33,6 +33,10 @@ const createUser = (req, res) => {
             user.created_on = new Date();
             user.is_admin = 0;
             user.password = hash;
+            // check if admin
+            if (user.email === config.ADMIN_EMAIL) {
+                user.is_admin = 1;
+            }
             createUserDB(user).then(() => {
                 delete user.password;
                 return res.status(200).json({ status: 200, data: user });
@@ -80,7 +84,6 @@ const loginUser = (req, res) => {
         });
     })
     .catch((error) => {
-        // console.log(error);
         return res.status(400).json({ status: 400, error: 'An error occurred' });
     });
 };
