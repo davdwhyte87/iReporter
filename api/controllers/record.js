@@ -6,38 +6,6 @@ import { Record,
      getSingleRecordDB,
      updateRecordsDB, deleteRecordDB } from '../models/Record';
 
-const validate = (method) => {
-    switch (method) {
-        case 'create': {
-            return [
-                check.body('title', 'a valid title is needed').exists(),
-                check.body('title', 'Title is too short, at least 5 characters').isLength({ min: 5 }),
-                check.body('comment', 'a valid comment is required').exists().isLength({ min: 5 }),
-                check.body('type', 'You need to selected a type').exists().isString(),
-                check.body('comment', 'You need to add a valid comment (At least 300 characters)')
-                .exists().isString().isLength({ min: 3 }),
-                check.body('created_by', 'User Id is needed').exists().isInt(),
-                check.body('status', 'A defualt status is required').exists().isString(),
-            ];
-        }
-        case 'update': {
-            return [
-                check.body('title', 'a valid title is needed').exists(),
-                check.body('title', 'Title is too short, at least 5 characters').isLength({ min: 5 }),
-                check.body('comment', 'a valid comment is required').exists().isLength({ min: 5 }),
-                check.body('type', 'You need to selected a type').exists().isString(),
-                check.body('comment', 'You need to add a valid comment (At least 300 characters)')
-                .exists().isString().isLength({ min: 3 }),
-                check.body('created_by', 'User Id is needed').exists().isInt(),
-                check.body('status', 'A defualt status is required').exists().isString(),
-            ];
-        }
-        default: {
-            return [];
-        }
-    }
-};
-
 const createId = () => {
     const id = Math.floor(Math.random()*90000000000) + 100000000000;
     return id;
@@ -72,7 +40,7 @@ const create = (req, res) => {
     record.id = createId();
     record.comment = req.body.comment;
     record.created_on = new Date();
-    record.created_by = req.body.created_by;
+    record.created_by = req.userData.id;
     record.image = req.body.image;
     record.location = req.body.location;
     record.status = 'draft';
@@ -99,7 +67,6 @@ const getAll = (req, res) => {
     .catch((error) => {
         return res.status(404).json({ status: 404, error: 'An error occurred' });
     });
-    // return res.status(200).json({ status: 200, data: DbRecord });
 };
 
 const getSingle = (req, res) => {
@@ -136,7 +103,7 @@ const updateRecord = (req, res) => {
         updateRecordData.location = req.body.location || originalRecord.location;
         updateRecordData.status = req.body.status || originalRecord.status;
         updateRecordsDB(updateRecordData).then((result) => {
-            return res.status(200).json({ status: 200, data: data.rows });
+            return res.status(200).json({ status: 200, data: updateRecordData });
         })
         .catch((error) => {
             return res.status(404).json({ status: 404, error: 'An error occurred' });
@@ -154,4 +121,4 @@ const deleteRecord = (req, res) => {
     });
 };
 
-export { validate, create, getAll, getSingle, updateRecord, deleteRecord };
+export { create, getAll, getSingle, updateRecord, deleteRecord };
