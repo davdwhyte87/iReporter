@@ -71,7 +71,9 @@ const loginUser = (req, res) => {
                 return res.status(400).json({ status: 400, error: 'An error occurred' });
             }
             if (result) {
-                const tokenData=jwt.sign({ id: userData.id, is_admin: userData.is_admin },
+                const tokenData=jwt.sign({ id: userData.id,
+                     email: userData.email,
+                     is_admin: userData.is_admin },
                     config.JWT, {
                     expiresIn: '24h',
                 });

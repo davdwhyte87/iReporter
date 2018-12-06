@@ -1,10 +1,13 @@
 import check from 'express-validator/check';
+import sgMail from '@sendgrid/mail';
+import config from 'config';
 import { Record,
      DbRecord,
      createRecordDB,
      getAllRecordsDB,
      getSingleRecordDB,
      updateRecordsDB, deleteRecordDB } from '../models/Record';
+import { User, createUserDB, getSingleUserDB, getSingleUserByIdDB } from '../models/User';
 
 const createId = () => {
     const id = Math.floor(Math.random()*90000000000) + 100000000000;
@@ -107,6 +110,22 @@ const updateRecord = (req, res) => {
             updateRecordData.status = originalRecord.status;
         }
         updateRecordsDB(updateRecordData).then((result) => {
+            if (req.userData.is_admin === 1) {
+                if (updateRecordData.status !== originalRecord.status) {
+                    getSingleUserByIdDB([originalRecord.created_by]).then((userData) => {
+                        const userData2=userData.rows[0];
+                        sgMail.setApiKey(config.SENDGRID_API_KEY);
+                        const msg = {
+                        to: userData2.email,
+                        from: 'swaye407@gmail.com',
+                        subject: 'iRepoter Record Update',
+                        html: '<p>Thank you for using iRepoter, your post status <strong> '
+                        +updateRecordData.title+ '</strong> has been updated to <strong>'+updateRecordData.status+' </strong></p>',
+                        };
+                        sgMail.send(msg);
+                    });
+                }
+            }
             return res.status(200).json({ status: 200, data: updateRecordData });
         })
         .catch((error) => {
