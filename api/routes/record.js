@@ -1,7 +1,7 @@
 import express from 'express';
 import { validate, create, getAll, getSingle, updateRecord, deleteRecord } from '../controllers/record';
 import { Record } from '../models/Record';
-import { stringify } from 'querystring';
+
 
 const recordRouter=express.Router();
 
