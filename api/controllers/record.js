@@ -101,7 +101,11 @@ const updateRecord = (req, res) => {
         updateRecordData.created_by = originalRecord.created_by;
         updateRecordData.image = req.body.image || originalRecord.image;
         updateRecordData.location = req.body.location || originalRecord.location;
-        updateRecordData.status = req.body.status || originalRecord.status;
+        if (req.userData.is_admin === 1) {
+            updateRecordData.status = req.body.status || originalRecord.status;
+        } else {
+            updateRecordData.status = originalRecord.status;
+        }
         updateRecordsDB(updateRecordData).then((result) => {
             return res.status(200).json({ status: 200, data: updateRecordData });
         })
