@@ -14,7 +14,7 @@ const createTables = () => {
         title varchar(100) NOT NULL,
         comment TEXT NOT NULL,
         created_on varchar(100) NOT NULL,
-        created_by integer NOT NULL,
+        created_by bigint NOT NULL,
         type varchar(100) NOT NULL,
         location varchar(100),
         status varchar(100),

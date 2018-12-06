@@ -38,4 +38,44 @@ describe('Tests for authentication', () => {
             done();
         });
     });
+
+    it('should log a user in', (done) => {
+        const user = {
+            email: 'johnmmko32@gmail.com',
+            password: '12345',
+        };
+        chai.request(app).post('/api/v1/auth/login').send(user)
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.should.be.a('object');
+            res.body.should.have.property('data');
+            done();
+        });
+    });
+    it('should not log a user in with wrong email', (done) => {
+        const user = {
+            email: 'johnmmko328999@gmail.com',
+            password: '12345',
+        };
+        chai.request(app).post('/api/v1/auth/login').send(user)
+        .end((err, res) => {
+            res.should.have.status(400);
+            res.should.be.a('object');
+            res.body.should.have.property('error');
+            done();
+        });
+    });
+    it('should not log a user in with wrong password', (done) => {
+        const user = {
+            email: 'johnmmko32@gmail.com',
+            password: '12345jsnjns',
+        };
+        chai.request(app).post('/api/v1/auth/login').send(user)
+        .end((err, res) => {
+            res.should.have.status(400);
+            res.should.be.a('object');
+            res.body.should.have.property('error');
+            done();
+        });
+    });
 });
