@@ -31,12 +31,11 @@ describe('Tests for records ', () => {
             created_by: 4,
             status: 'under-investigation',
         };
-        chai.request(app).post('/api/v1/red-flag').send(record).set('token', token)
+        chai.request(app).post('/api/v1/red-flags').send(record).set('token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.a('object');
             res.body.should.have.property('data');
-            res.body.data.should.have.property('title');
             ExampleRecordId=res.body.data.id;
             done();
         });
@@ -49,13 +48,12 @@ describe('Tests for records ', () => {
             created_by: 4,
             status: 'under-investigation',
         };
-        chai.request(app).post('/api/v1/intervention').send(record).set('token', token)
+        chai.request(app).post('/api/v1/interventions').send(record).set('token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.a('object');
             res.body.should.have.property('data');
-            res.body.data.should.have.property('title');
-            ExampleRecordId=res.body.data.id;
+            ExampleRecordId=res.body.data[0].id;
             done();
         });
     });
@@ -67,9 +65,9 @@ describe('Tests for records ', () => {
             created_by: 4,
             status: 'under-investigation',
         };
-        chai.request(app).post('/api/v1/red-flag').send(record).set('token', token)
+        chai.request(app).post('/api/v1/red-flags').send(record).set('token', token)
         .end((err, res) => {
-            res.should.have.status(404);
+            res.should.have.status(400);
             res.should.be.a('object');
             res.body.should.have.property('error');
             res.body.error.should.be.a('array');
@@ -84,7 +82,7 @@ describe('Tests for records ', () => {
             created_by: 4,
             status: 'under-investigation',
         };
-        chai.request(app).post('/api/v1/red-flag').send(record).set('token', token+99292)
+        chai.request(app).post('/api/v1/red-flags').send(record).set('token', token+99292)
         .end((err, res) => {
             res.should.have.status(401);
             res.should.be.a('object');
@@ -93,7 +91,7 @@ describe('Tests for records ', () => {
         });
     });
     it('should get all the red-flag records in the database', (done) => {
-        chai.request(app).get('/api/v1/red-flag').set('token', token)
+        chai.request(app).get('/api/v1/red-flags').set('token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.a('object');
@@ -104,7 +102,7 @@ describe('Tests for records ', () => {
     });
 
     it('should not get all the red-flag records in the database', (done) => {
-        chai.request(app).get('/api/v1/red-flag').set('token', token+9090)
+        chai.request(app).get('/api/v1/red-flags').set('token', token+9090)
         .end((err, res) => {
             res.should.have.status(401);
             res.should.be.a('object');
@@ -113,7 +111,7 @@ describe('Tests for records ', () => {
         });
     });
     it('should get a single record', (done) => {
-        chai.request(app).get('/api/v1/red-flag/'+ExampleRecordId).set('token', token)
+        chai.request(app).get('/api/v1/red-flags/'+ExampleRecordId).set('token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.a('object');
@@ -123,7 +121,7 @@ describe('Tests for records ', () => {
         });
     });
     it('should not get a single record if the user is un authorized', (done) => {
-        chai.request(app).get('/api/v1/red-flag/'+ExampleRecordId).set('token', token+9828)
+        chai.request(app).get('/api/v1/red-flags/'+ExampleRecordId).set('token', token+9828)
         .end((err, res) => {
             res.should.have.status(401);
             res.should.be.a('object');
@@ -132,7 +130,7 @@ describe('Tests for records ', () => {
         });
     });
     it('should not get a single record if it does not exists', (done) => {
-        chai.request(app).get('/api/v1/red-flag/'+ExampleRecordId+99302).set('token', token)
+        chai.request(app).get('/api/v1/red-flags/'+ExampleRecordId+99302).set('token', token)
         .end((err, res) => {
             res.should.have.status(404);
             res.should.be.a('object');
@@ -141,13 +139,13 @@ describe('Tests for records ', () => {
         });
     });
 
-    it('should update a record', (done) => {
+    it('should update a record location', (done) => {
         const record={
             title: 'Danie is actually buharri',
             location: '172.39 293.289',
             status: 3,
         };
-        chai.request(app).patch('/api/v1/red-flag/'+ExampleRecordId).send(record).set('token', token)
+        chai.request(app).patch('/api/v1/red-flags/'+ExampleRecordId+'/location').send(record).set('token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.a('object');
@@ -162,7 +160,7 @@ describe('Tests for records ', () => {
             location: '172.39 293.289',
             status: 3,
         };
-        chai.request(app).patch('/api/v1/red-flag/'+ExampleRecordId).send(record).set('token', token+98283)
+        chai.request(app).patch('/api/v1/red-flags/'+ExampleRecordId+'/location').send(record).set('token', token+98283)
         .end((err, res) => {
             res.should.have.status(401);
             res.should.be.a('object');
@@ -176,7 +174,7 @@ describe('Tests for records ', () => {
             location: '172.39 293.289',
             status: 3,
         };
-        chai.request(app).patch('/api/v1/red-flag/'+ExampleRecordId+98989).send(record).set('token', token)
+        chai.request(app).patch('/api/v1/red-flags/'+ExampleRecordId+98989+'/location').send(record).set('token', token)
         .end((err, res) => {
             res.should.have.status(404);
             res.should.be.a('object');
@@ -185,7 +183,7 @@ describe('Tests for records ', () => {
         });
     });
     it('should delete a record', (done) => {
-        chai.request(app).del('/api/v1/red-flag/'+ExampleRecordId).set('token', token)
+        chai.request(app).del('/api/v1/red-flags/'+ExampleRecordId).set('token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.a('object');
@@ -194,7 +192,7 @@ describe('Tests for records ', () => {
         });
     });
     it('should not delete a record with unauthorized user', (done) => {
-        chai.request(app).del('/api/v1/red-flag/'+ExampleRecordId).set('token', token+2999)
+        chai.request(app).del('/api/v1/red-flags/'+ExampleRecordId).set('token', token+2999)
         .end((err, res) => {
             res.should.have.status(401);
             res.should.be.a('object');

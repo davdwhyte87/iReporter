@@ -19,8 +19,8 @@ app.use((req, res, next) => {
 const apiv='/api/v1';
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(apiv+'/red-flag', recordRouter);
-app.use(apiv+'/intervention', recordRouter);
+app.use(apiv+'/red-flags', recordRouter);
+app.use(apiv+'/interventions', recordRouter);
 app.use(apiv+'/auth', authRouter);
 app.get('/api/v1', (req, res) => {
     res.status(200).send('Hey this is the iReporter API version 1');
