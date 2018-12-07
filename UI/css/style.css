@@ -5,6 +5,10 @@ body {
 
 }
 
+.bg-k{
+	background: #aaa;
+}
+
 #auth {
 	background-image: url('https://www.google.com.ng/search?q=black+background&rlz=1C1CHBF_enNG802NG802&tbm=isch&source=iu&ictx=1&fir=0jlFcUAbJ-_xvM%253A%252CsOgOvVzAoKlDPM%252C_&usg=AI4_-kQOxdpVK4Byg_yEVXC2sy3ALKf-uw&sa=X&ved=2ahUKEwirzbfz8IPfAhUDzKQKHftZDzoQ9QEwBHoECAAQDA#');
 	background-attachment: fixed;
@@ -46,6 +50,7 @@ body {
 
 .box .inputBox a {
 	color: #03a9f4;
+	font-weight: 700;
 }
 
 .box .inputBox input {
@@ -65,7 +70,7 @@ body {
 	top: -20px;
 	left: 0;
 	color: #03a9f4;
-	font-size: 12px;
+	font-size: 17px;
 }
 
 .box .inputBox label {
@@ -85,7 +90,7 @@ body {
 	top: -20px;
 	left: 0;
 	color: #03a9f4;
-	font-size: 12px;
+	
 }
 
 .navbar {
@@ -128,6 +133,8 @@ body {
 
 .nav-name{
 	color: #03a9f4 !important;
+	background: #fff;
+	font-weight: bold;
 }
 
 #app-forms-bg {
@@ -292,7 +299,7 @@ body {
 .btn-primary{
 	padding: 10px;
 	margin: 5px;
-	background: #111;
+	background: #333;
 	color: #fff;
 	border-width: 0px;
 	font-size: 17px;
@@ -307,11 +314,33 @@ body {
 	padding: 10px;
 	margin: 5px;
 	background: #fff;
-	color:#111;
+	color: #333;
 	border-width: 1px;
-	border-color: #111;
+	border-color: #333;
 	font-size: 17px;
 	text-decoration: none;
+}
+
+.cta{
+	padding: 10px;
+	margin: 5px;
+	background: #03a9f4;
+	color: #fff;
+	border-width: 0px;
+	font-size: 35px;
+	box-shadow: 0px 0px;
+	text-decoration: none;
+	transition: all ease-in 0.1s;
+	cursor: pointer;	
+}
+.cta:hover{
+	padding: 5px;
+	margin: 5px;
+	background: #fff;
+	color: #03a9f4;
+	border-width: 1px;
+	border-color: #03a9f4;
+	text-decoration: none;	
 }
 
 .btn-sn {
@@ -458,7 +487,8 @@ body {
 
 .hero {
 	align-items: center;
-	background: url('../img/hm.jpg');
+	/* background: url('https://www.africa.com/wp-content/uploads/2018/01/seven-days-in-Nigeria-1021x580.jpg'); */
+	background: url('https://i2.wp.com/media.premiumtimesng.com/wp-content/files/2017/02/IMG_2726.jpg?fit=800%2C452&ssl=1');
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
