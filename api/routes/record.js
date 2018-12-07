@@ -9,7 +9,9 @@ const recordRouter=express.Router();
 recordRouter.post('/', Auth, validator('create-record'), create);
 recordRouter.get('/', Auth, getAll);
 recordRouter.get('/:id', Auth, getSingle);
-recordRouter.patch('/:id', Auth, updateRecord);
+recordRouter.patch('/:id/comment', Auth, updateRecord);
+recordRouter.patch('/:id/status', Auth, updateRecord);
+recordRouter.patch('/:id/location', Auth, updateRecord);
 recordRouter.delete('/:id', Auth, deleteRecord);
 
 export default recordRouter;
