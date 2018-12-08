@@ -142,7 +142,7 @@ describe('Tests for records ', () => {
     it('should update a record location', (done) => {
         const record={
             title: 'Danie is actually buharri',
-            location: '172.39 293.289',
+            location: '6.5764895 , 3.3880003999999997',
             status: 3,
         };
         chai.request(app).patch('/api/v1/red-flags/'+ExampleRecordId+'/location').send(record).set('token', token)
@@ -157,7 +157,7 @@ describe('Tests for records ', () => {
     it('should not update a record with unathorized user', (done) => {
         const record={
             title: 'Danie is actually buharri',
-            location: '172.39 293.289',
+            location: '6.5764895 , 3.3880003999999997',
             status: 3,
         };
         chai.request(app).patch('/api/v1/red-flags/'+ExampleRecordId+'/location').send(record).set('token', token+98283)
@@ -171,7 +171,7 @@ describe('Tests for records ', () => {
     it('should not update a record with a wrong id', (done) => {
         const record={
             title: 'Danie is actually buharri',
-            location: '172.39 293.289',
+            location: '6.5764895 , 3.3880003999999997',
             status: 3,
         };
         chai.request(app).patch('/api/v1/red-flags/'+ExampleRecordId+98989+'/location').send(record).set('token', token)

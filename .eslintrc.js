@@ -11,6 +11,7 @@ module.exports = {
         "arrow-body-style":["off"],
         "object-curly-newline":["off"],
         "array-callback-return":["off"],
+        "no-useless-escape": ["off"],
         "consistent-return":["off"],
         "prefer-destructuring": ["off", {
             "array": false,

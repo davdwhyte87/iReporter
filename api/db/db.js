@@ -13,8 +13,8 @@ const createTables = () => {
         id bigint PRIMARY KEY,
         title varchar(100) NOT NULL,
         comment TEXT NOT NULL,
-        created_on varchar(100) NOT NULL,
-        created_by bigint NOT NULL,
+        "createdOn" varchar(100) NOT NULL,
+        "createdBy" bigint NOT NULL,
         type varchar(100) NOT NULL,
         location varchar(100),
         status varchar(100),
@@ -27,10 +27,12 @@ const createTables = () => {
         id bigint PRIMARY KEY,
         firstname varchar(255) NOT NULL,
         lastname varchar(255) NOT NULL,
+        othernames varchar(255) NOT NULL,
+        username varchar(255) NOT NULL,
         email varchar(255) NOT NULL,
-        phone varchar(100) NOT NULL,
-        created_on varchar(100) NOT NULL,
-        is_admin int NOT NULL,
+        "phoneNumber" varchar(100) NOT NULL,
+        "createdOn" varchar(100) NOT NULL,
+        "isAdmin" int NOT NULL,
         password TEXT NOT NULL 
     );
     `;

@@ -12,6 +12,8 @@ describe('Tests for authentication', () => {
             firstname: 'John',
             email: 'johnmmko32@gmail.com',
             lastname: 'solomon',
+            othernames: 'Lee',
+            username: 'johnr45',
             phone: '0902939930',
             password: '12345',
         };

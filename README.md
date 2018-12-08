@@ -53,16 +53,20 @@ resolved).
  `https://www.pivotaltracker.com/n/projects/2226785`
 
 ## Api Endpoints
-- `GET /api/v1/red-flag` - Fetches all the red-flag records
-- `GET /api/v1/intervention` - Fetches all the intervention records
-- `GET /api/v1/red-flag/:id` - Fetches a single record
-- `GET /api/v1/intervention/:id` - Fetches a single record
-- `POST /api/v1/red-flag` - Creates a red-flag record
-- `POST /api/v1/intervention` - Creates an intervention record
-- `PATCH /api/v1/red-flag/:id` - Edits a red-flag record
-- `PATCH /api/v1/intervention/:id` - Edits an intervention record
-- `DELETE /api/v1/red-flag/:id` - Deletes a red-flag record
-- `DELETE /api/v1/intervention/:id` - Deletes an intervention record
+- `GET /api/v1/red-flags` - Fetches all the red-flag records
+- `GET /api/v1/interventions` - Fetches all the intervention records
+- `GET /api/v1/red-flags/:id` - Fetches a single record
+- `GET /api/v1/interventions/:id` - Fetches a single record
+- `POST /api/v1/red-flags` - Creates a red-flag record
+- `POST /api/v1/interventions` - Creates an intervention record
+- `PATCH /api/v1/red-flags/:id/location` - Edits a red-flag record location
+- `PATCH /api/v1/red-flags/:id/status` - Edits a red-flag record status
+- `PATCH /api/v1/red-flags/:id/comment` - Edits a red-flag record location
+- `PATCH /api/v1/interventions/:id/location` - Edits an intervention record location
+- `PATCH /api/v1/interventions/:id/status` - Edits an intervention record status
+- `PATCH /api/v1/interventions/:id/comment` - Edits an intervention record comment
+- `DELETE /api/v1/red-flags/:id` - Deletes a red-flag record
+- `DELETE /api/v1/interventions/:id` - Deletes an intervention record
 - `POST /api/v1/auth/signup` - Signs up a new user
 - `POST /api/v1/auth/login` - Logs a user in
  
