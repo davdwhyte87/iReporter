@@ -10,8 +10,8 @@ recordRouter.post('/', Auth, validator('create-record'), create);
 recordRouter.get('/', Auth, getAll);
 recordRouter.get('/:id', Auth, getSingle);
 recordRouter.patch('/:id/comment', Auth, updateRecord);
-recordRouter.patch('/:id/status', Auth, updateRecord);
-recordRouter.patch('/:id/location', Auth, updateRecord);
+recordRouter.patch('/:id/status', validator('update-status'), Auth, updateRecord);
+recordRouter.patch('/:id/location', Auth, validator('update-location'), updateRecord);
 recordRouter.delete('/:id', Auth, deleteRecord);
 
 export default recordRouter;

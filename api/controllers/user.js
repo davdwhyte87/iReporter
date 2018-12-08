@@ -28,18 +28,30 @@ const createUser = (req, res) => {
             user.id = createId();
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
+            user.othernames = req.body.othernames;
+            user.username = req.body.username;
             user.email = req.body.email;
-            user.phone = req.body.phone;
-            user.created_on = new Date();
-            user.is_admin = 0;
+            user.phoneNumber = req.body.phone;
+            user.createdOn = new Date();
+            user.isAdmin = 0;
             user.password = hash;
             // check if admin
             if (user.email === config.ADMIN_EMAIL) {
-                user.is_admin = 1;
+                user.isAdmin = 1;
             }
             createUserDB(user).then(() => {
                 delete user.password;
-                return res.status(200).json({ status: 200, data: user });
+                const tokenData=jwt.sign({ id: user.id,
+                    email: user.email,
+                    isAdmin: user.isAdmin },
+                   config.JWT, {
+                   expiresIn: '24h',
+               });
+               const userData2 = user;
+               delete userData2.password;
+               return res.status(200).json({
+                   status: 200,
+                   data: [{ token: tokenData, user: userData2 }] });
             })
             .catch((error) => {
                 console.log(error);
@@ -73,7 +85,7 @@ const loginUser = (req, res) => {
             if (result) {
                 const tokenData=jwt.sign({ id: userData.id,
                      email: userData.email,
-                     is_admin: userData.is_admin },
+                     isAdmin: userData.isAdmin },
                     config.JWT, {
                     expiresIn: '24h',
                 });

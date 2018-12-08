@@ -41,8 +41,8 @@ const create = (req, res) => {
     record.type = type;
     record.id = createId();
     record.comment = req.body.comment;
-    record.created_on = new Date();
-    record.created_by = req.userData.id;
+    record.createdOn = new Date();
+    record.createdBy = req.userData.id;
     record.image = req.body.image;
     record.location = req.body.location;
     record.status = 'draft';
@@ -62,9 +62,9 @@ const create = (req, res) => {
 const getAll = (req, res) => {
     let type;
     if (checkIfRedFlag(req)) {
-        type ='red-flags';
+        type ='red-flag';
     } else {
-        type ='interventions';
+        type ='intervention';
     }
     getAllRecordsDB([type]).then((data) => {
         return res.status(200).json({ status: 200, data: data.rows });
@@ -119,6 +119,13 @@ const checkActionStatus = (req) => {
 };
 
 const updateRecord = (req, res) => {
+    const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
+        return msg;
+      };
+    const errors = check.validationResult(req).formatWith(errorFormatter);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ status: 400, error: errors.array({ onlyFirstError: true }) });
+    }
     let successMessage;
     let type;
     if (checkIfRedFlag(req)) {
@@ -137,8 +144,8 @@ const updateRecord = (req, res) => {
         updateRecordData.title = req.body.title || originalRecord.title;
         updateRecordData.type = originalRecord.type;
         updateRecordData.id = originalRecord.id;
-        updateRecordData.created_on = originalRecord.created_on;
-        updateRecordData.created_by = originalRecord.created_by;
+        updateRecordData.createdOn = originalRecord.createdOn;
+        updateRecordData.createdBy = originalRecord.createdBy;
         updateRecordData.image = req.body.image || originalRecord.image;
         if (checkActionComment(req)) {
             updateRecordData.comment = req.body.comment || originalRecord.comment;
@@ -153,7 +160,7 @@ const updateRecord = (req, res) => {
             updateRecordData.location = originalRecord.location;
         }
         if (checkActionStatus(req)) {
-            if (req.userData.is_admin === 1) {
+            if (req.userData.isAdmin === 1) {
                 updateRecordData.status = req.body.status || originalRecord.status;
                 successMessage = 'Updated '+type+' status';
             } else {
@@ -164,9 +171,9 @@ const updateRecord = (req, res) => {
             updateRecordData.status = originalRecord.status;
         }
         updateRecordsDB(updateRecordData).then((result) => {
-            if (req.userData.is_admin === 1) {
+            if (req.userData.isAdmin === 1) {
                 if (updateRecordData.status !== originalRecord.status) {
-                    getSingleUserByIdDB([originalRecord.created_by]).then((userData) => {
+                    getSingleUserByIdDB([originalRecord.createdBy]).then((userData) => {
                         const userData2=userData.rows[0];
                         sgMail.setApiKey(config.SENDGRID_API_KEY);
                         const msg = {
