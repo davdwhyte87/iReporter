@@ -334,8 +334,6 @@ body {
 	cursor: pointer;	
 }
 .cta:hover{
-	padding: 5px;
-	margin: 5px;
 	background: #fff;
 	color: #03a9f4;
 	border-width: 1px;
@@ -487,8 +485,8 @@ body {
 
 .hero {
 	align-items: center;
-	/* background: url('https://www.africa.com/wp-content/uploads/2018/01/seven-days-in-Nigeria-1021x580.jpg'); */
-	background: url('https://i2.wp.com/media.premiumtimesng.com/wp-content/files/2017/02/IMG_2726.jpg?fit=800%2C452&ssl=1');
+	background: url('https://thekindredmag.files.wordpress.com/2016/04/dont-speak.jpg?w=900');
+	/* background: url('https://i2.wp.com/media.premiumtimesng.com/wp-content/files/2017/02/IMG_2726.jpg?fit=800%2C452&ssl=1'); */
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -496,13 +494,15 @@ body {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	/* justify-content: center; */
+	/* justify-content: left; */
 	padding: 0 30px;
   }
 
 .hero>h2 {
-	  font-size: 55px;
-	  text-align: center;
+	  font-size: 60px;
+	  font-weight: bolder;
+	  text-align: left;
+	  color: #03a9f4;
   }
   
 .nav-mobile {
@@ -526,7 +526,7 @@ body {
 	}
 
 	.hero>h2{
-	  	font-size: 25px;
+	  	font-size: 40px;
 	  	text-align: center;
 	}
 
