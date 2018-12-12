@@ -2,21 +2,22 @@ module.exports = {
     "extends": "airbnb-base",
     "parser": "babel-eslint",
     "rules":{
+        "valid-jsdoc": ["error", {
+            "requireReturn": true,
+            "requireReturnType": true,
+            "requireParamDescription": false,
+            "requireReturnDescription": true
+          }],
+          "require-jsdoc": ["error", {
+              "require": {
+                  "FunctionDeclaration": true,
+                  "MethodDefinition": true,
+                  "ClassDeclaration": true
+              }
+          }],
         "linebreak-style": ["error", "windows"],
-        "import/newline-after-import":["off"],
-        "space-infix-ops":["off"],
-        "no-unused-vars":['off'],
-        "indent":["off"],
-        "prefer-template":["off"],
-        "arrow-body-style":["off"],
-        "object-curly-newline":["off"],
-        "array-callback-return":["off"],
-        "no-useless-escape": ["off"],
         "consistent-return":["off"],
-        "prefer-destructuring": ["off", {
-            "array": false,
-            "object": true
-          }
-        ]
+        "prefer-template": ["off"],
+        "class-methods-use-this": ["off"]
     }
 };

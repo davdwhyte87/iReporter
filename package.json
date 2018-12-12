@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "npm run build && nodemon server.js --exec babel-node --presets env",
-    "test": "npm run build && mocha dist/test/*.js --exit",
+    "test": "npm run build && mocha dist/test/*.js --exit --timeout 10000",
     "clean": "rimraf dist coverage",
     "build": "npm run clean && babel -d ./dist ./ -s --ignore node_modules,UI",
     "start-prod": "npm run build && nodemon ./dist/server.js",

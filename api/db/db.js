@@ -1,13 +1,13 @@
 import { Pool } from 'pg';
 import config from 'config';
 
-const pool=new Pool({ connectionString: config.DB_URL });
+const pool = new Pool({ connectionString: config.DB_URL });
 pool.on('connect', () => {
-    console.log('connected');
+  console.log('connected');
 });
 
 const createTables = () => {
-    const createRecordQuery= `
+  const createRecordQuery = `
     CREATE TABLE IF NOT EXISTS
     records(
         id bigint PRIMARY KEY,
@@ -21,7 +21,7 @@ const createTables = () => {
         image TEXT
     );
     `;
-    const createUserQuery=`
+  const createUserQuery = `
     CREATE TABLE IF NOT EXISTS
     users(
         id bigint PRIMARY KEY,
@@ -32,21 +32,15 @@ const createTables = () => {
         email varchar(255) NOT NULL,
         "phoneNumber" varchar(100) NOT NULL,
         "createdOn" varchar(100) NOT NULL,
-        "isAdmin" int NOT NULL,
+        "isAdmin" boolean NOT NULL,
         password TEXT NOT NULL 
     );
     `;
-    const seedRecordsQuery=`
-    INSERT INTO records ("id","title","comment","created_on","created_by","type","location","status","image")
-    VALUES (2030300,'Mandela wa gay!','jrkelkjekdldkeda','39-29-1003UTC',328394,'red-flag','192.39 9304.93',0,'aojdnkdnjknkanskakjsdanjakjnkas');
-    `;
-    // pool.connect();
-    const finalQueryCreate=createRecordQuery+createUserQuery;
-    const finalQuerySeed=seedRecordsQuery;
-    pool.query(finalQueryCreate).then((res) => {
-        console.log(res);
-    });
-    pool.end();
+  const finalQueryCreate = createRecordQuery + createUserQuery;
+  pool.query(finalQueryCreate).then((res) => {
+    console.log(res);
+  });
+  pool.end();
 };
 
 createTables();
