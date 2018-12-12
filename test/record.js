@@ -170,18 +170,6 @@ describe('Tests for records ', () => {
         done();
       });
   });
-  it('should update a record status', (done) => {
-    const update = { status: 'rejected' };
-    chai.request(app).patch('/api/v1/red-flags/' + ExampleRecordId + '/status')
-      .send(update)
-      .set('token', adminToken)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.should.be.a('object');
-        res.body.should.have.property('data');
-        done();
-      });
-  });
   it('should not update a record with unathorized user', (done) => {
     const record = {
       title: 'Danie is actually buharri',
