@@ -10,7 +10,7 @@ let ExampleRecordId = null;
 let token = null;
 let adminToken = null;
 describe('Tests for records ', () => {
-  before((done) => {
+  it('should login a user', (done) => {
     const user = {
       email: 'johnmmko32@gmail.com',
       password: '12345',
@@ -25,7 +25,7 @@ describe('Tests for records ', () => {
         done();
       });
   });
-  before((done) => {
+  it('should login an admin', (done) => {
     const admin = {
       email: 'adminIreporter@gmail.com',
       password: '12345',
