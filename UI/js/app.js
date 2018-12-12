@@ -118,3 +118,8 @@ function flashMessage(type, message, errors){
     console.log(messageDiv);
     body.insertBefore(messageDiv, document.getElementById('flash'));
 }
+
+function logout() {
+    localStorage.clear();
+    window.location = 'index.html';
+}
