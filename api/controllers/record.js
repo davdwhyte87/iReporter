@@ -165,9 +165,9 @@ class RecordController {
       updateRecordData.image = req.body.image || originalRecord.image;
       if (RecordController.checkActionComment(req)) {
         updateRecordData.comment = req.body.comment || originalRecord.comment;
+        successMessage = 'Updated ' + type + ' comment';
       } else {
         updateRecordData.comment = originalRecord.comment;
-        successMessage = 'Updated ' + type + ' comment';
       }
       if (RecordController.checkActionLocation(req)) {
         updateRecordData.location = req.body.location || originalRecord.location;
