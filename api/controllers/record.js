@@ -180,6 +180,7 @@ class RecordController {
           updateRecordData.status = req.body.status || originalRecord.status;
           successMessage = 'Updated ' + type + ' status';
         } else {
+          console.log(req.userData);
           updateRecordData.status = originalRecord.status;
           return res.status(401).json({ status: 401, error: 'Unauthorized' });
         }
