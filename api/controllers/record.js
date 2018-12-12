@@ -181,6 +181,7 @@ class RecordController {
           successMessage = 'Updated ' + type + ' status';
         } else {
           updateRecordData.status = originalRecord.status;
+          console.log('neemaa');
           return res.status(401).json({ status: 401, error: 'Unauthorized' });
         }
       } else {
