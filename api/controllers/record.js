@@ -1,40 +1,34 @@
-import check from 'express-validator/check';
 import sgMail from '@sendgrid/mail';
-import config from 'config';
-import { Record,
-     DbRecord,
-     createRecordDB,
-     getAllRecordsDB,
-     getSingleRecordDB,
-     updateRecordsDB, deleteRecordDB } from '../models/Record';
-import { User, createUserDB, getSingleUserDB, getSingleUserByIdDB } from '../models/User';
+import {
+  Record,
+  createRecordDB,
+  getAllRecordsDB,
+  getSingleRecordDB,
+  updateRecordsDB,
+  deleteRecordDB,
+} from '../models/Record';
+import { getSingleUserByIdDB } from '../models/User';
 import createId from '../helpers/generator';
 
-const checkIfRedFlag = (req) => {
-    const redFlag ='red-flag';
-    const myPattern = new RegExp('(\\w*'+redFlag+'\\w*)', 'gi');
-    const matches = String(req.originalUrl).match(myPattern);
-    if (matches) {
-        return true;
-    }
-    return false;
-};
-const create = (req, res) => {
-    let type; // 0 for red flag 1 for intervention
+import checkIfRedFlag from '../helpers/check-redflag';
+
+/** Class representing a record */
+class RecordController {
+  /**
+   * This function creates a new record
+   * @param {Object} req - Incoming request
+   * @param {Object} res - Response to be returned
+   * @return {Object} res - Response for a request
+   */
+  create(req, res) {
+    let type;
     let successMessage;
-    const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
-        return msg;
-      };
-    const errors = check.validationResult(req).formatWith(errorFormatter);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ status: 400, error: errors.array({ onlyFirstError: true }) });
-    }
     if (checkIfRedFlag(req)) {
-        type ='red-flag';
-        successMessage = 'Created red-flag record';
+      type = 'red-flag';
+      successMessage = 'Created red-flag record';
     } else {
-        type ='intervention';
-        successMessage = 'created intervention record';
+      type = 'intervention';
+      successMessage = 'created intervention record';
     }
     const record = Record;
     record.title = req.body.title;
@@ -46,174 +40,229 @@ const create = (req, res) => {
     record.image = req.body.image;
     record.location = req.body.location;
     record.status = 'draft';
-    DbRecord.push(record);
-    createRecordDB(record).then((data) => {
-        return res.status(200).json({
-            status: 200,
-            data: [{ id: record.id, message: successMessage }],
-         });
-    })
-    .catch((error) => {
+    createRecordDB(record).then(() => res.status(200).json({
+      status: 200,
+      data: [{ id: record.id, message: successMessage }],
+    }))
+      .catch((error) => {
         console.log(error);
         return res.status(400).json({ status: 400, error: 'An error occurred' });
-    });
-};
+      });
+  }
 
-const getAll = (req, res) => {
+  /**
+   * This function gets all records in a database
+   * @param {Object} req - Incoming request
+   * @param {Object} res - Response to be returned
+   * @return {Object} res - Response for a request
+   */
+  getAll(req, res) {
     let type;
     if (checkIfRedFlag(req)) {
-        type ='red-flag';
+      type = 'red-flag';
     } else {
-        type ='intervention';
+      type = 'intervention';
     }
-    getAllRecordsDB([type]).then((data) => {
-        return res.status(200).json({ status: 200, data: data.rows });
-    })
-    .catch((error) => {
-        return res.status(400).json({ status: 400, error: 'An error occurred' });
-    });
-};
+    getAllRecordsDB([type]).then(data => res.status(200).json({ status: 200, data: data.rows }))
+      .catch((error) => {
+        console.log(error);
+        res.status(400).json({ status: 400, error: 'An error occurred' });
+      });
+  }
 
-const getSingle = (req, res) => {
+  /**
+   * This gets a single record from the database
+   * @param {Object} req - Incoming request
+   * @param {Object} res - Response to be returned
+   * @return {Object} res - Response for a request
+   */
+  getSingle(req, res) {
     const recordId = parseInt(req.params.id, 10);
-    let RecordData;
     getSingleRecordDB([recordId]).then((data) => {
-        if (data.rowCount===0) {
-            return res.status(404).json({ status: 404, error: 'This record does not exist' });
-        }
-        return res.status(200).json({ status: 200, data: data.rows });
+      if (data.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'This record does not exist' });
+      }
+      return res.status(200).json({ status: 200, data: data.rows });
     })
-    .catch((error) => {
-        return res.status(400).json({ status: 400, error: 'An error occurred' });
-    });
-};
+      .catch((error) => {
+        console.log(error);
+        res.status(400).json({ status: 400, error: 'An error occurred' });
+      });
+  }
 
-const checkActionComment = (req) => {
-    const data ='comment';
-    const myPattern = new RegExp('(\\w*\\w*'+data+')', 'gi');
+  /**
+   * This function checks if a comment is to be updated
+   * @param {Object} req - Incoming request object
+   * @return {Boolean} - Boolean
+   */
+  static checkActionComment(req) {
+    const data = 'comment';
+    const myPattern = new RegExp('(\\w*\\w*' + data + ')', 'gi');
     const matches = String(req.originalUrl).match(myPattern);
     if (matches) {
-        return true;
+      return true;
     }
     return false;
-};
+  }
 
-const checkActionLocation = (req) => {
-    const data ='location';
-    const myPattern = new RegExp('(\\w*\\w*'+data+')', 'gi');
+  /**
+   * This function checks whether the location is to be updated
+   * @param {Object} req - request object
+   * @return {Boolean} Boolean
+   */
+  static checkActionLocation(req) {
+    const data = 'location';
+    const myPattern = new RegExp('(\\w*\\w*' + data + ')', 'gi');
     const matches = String(req.originalUrl).match(myPattern);
     if (matches) {
-        return true;
+      return true;
     }
     return false;
-};
+  }
 
-const checkActionStatus = (req) => {
-    const data ='status';
-    const myPattern = new RegExp('(\\w*\\w*'+data+')', 'gi');
+  /**
+   * This function checks whether to update a record status
+   * @param {Object} req - request object
+   * @return {Object} Boolean - returns true or false
+   */
+  static checkActionStatus(req) {
+    const data = 'status';
+    const myPattern = new RegExp('(\\w*\\w*' + data + ')', 'gi');
     const matches = String(req.originalUrl).match(myPattern);
     if (matches) {
-        return true;
+      return true;
     }
     return false;
-};
+  }
 
-const updateRecord = (req, res) => {
-    const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
-        return msg;
-      };
-    const errors = check.validationResult(req).formatWith(errorFormatter);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ status: 400, error: errors.array({ onlyFirstError: true }) });
-    }
+  /**
+   * This function updates a record
+   * @param {Object} req - request object
+   * @param {Object} res - response object
+   * @return {Object}  - response Object
+   */
+  updateRecord(req, res) {
     let successMessage;
     let type;
     if (checkIfRedFlag(req)) {
-        type = 'red-flg';
+      type = 'red-flg';
     } else {
-        type = 'intervention';
+      type = 'intervention';
     }
     let originalRecord;
-    const recordId=parseInt(req.params.id, 10);
-    getSingleRecordDB([recordId]).then((data) => {
-        if (data.rowCount===0) {
-            return res.status(404).json({ status: 404, error: 'Record not found' });
-        }
-        originalRecord = data.rows[0];
-        const updateRecordData = Record;
-        updateRecordData.title = req.body.title || originalRecord.title;
-        updateRecordData.type = originalRecord.type;
-        updateRecordData.id = originalRecord.id;
-        updateRecordData.createdOn = originalRecord.createdOn;
-        updateRecordData.createdBy = originalRecord.createdBy;
-        updateRecordData.image = req.body.image || originalRecord.image;
-        if (checkActionComment(req)) {
-            updateRecordData.comment = req.body.comment || originalRecord.comment;
-        } else {
-            updateRecordData.comment = originalRecord.comment;
-            successMessage = 'Updated '+type+' comment';
-        }
-        if (checkActionLocation(req)) {
-            updateRecordData.location = req.body.location || originalRecord.location;
-            successMessage = 'Updated '+type+' location';
-        } else {
-            updateRecordData.location = originalRecord.location;
-        }
-        if (checkActionStatus(req)) {
-            if (req.userData.isAdmin === 1) {
-                updateRecordData.status = req.body.status || originalRecord.status;
-                successMessage = 'Updated '+type+' status';
-            } else {
-                updateRecordData.status = originalRecord.status;
-                return res.status(401).json({ status: 401, error: 'Unauthorized' });
-            }
-        } else {
-            updateRecordData.status = originalRecord.status;
-        }
-        updateRecordsDB(updateRecordData).then((result) => {
-            if (req.userData.isAdmin === 1) {
-                if (updateRecordData.status !== originalRecord.status) {
-                    getSingleUserByIdDB([originalRecord.createdBy]).then((userData) => {
-                        const userData2=userData.rows[0];
-                        sgMail.setApiKey(config.SENDGRID_API_KEY);
-                        const msg = {
-                        to: userData2.email,
-                        from: 'swaye407@gmail.com',
-                        subject: 'iRepoter Record Update',
-                        html: '<p>Thank you for using iRepoter, your post status <strong> '
-                        +updateRecordData.title+ '</strong> has been updated to <strong>'+updateRecordData.status+' </strong></p>',
-                        };
-                        sgMail.send(msg);
-                    });
-                }
-            }
-            return res.status(200).json({
-                 status: 200,
-                 data: [{ id: originalRecord.id, message: successMessage }],
-                 });
-        })
-        .catch((error) => {
-            return res.status(400).json({ status: 400, error: 'An error occurred' });
-        });
-    });
-};
-
-const deleteRecord = (req, res) => {
-    let successMessage;
     const recordId = parseInt(req.params.id, 10);
-    deleteRecordDB([recordId]).then((data) => {
-        if (checkIfRedFlag(req)) {
-            successMessage = 'red-flag record has been deleted';
+    getSingleRecordDB([recordId]).then((data) => {
+      if (data.rowCount === 0) {
+        return res.status(404).json({ status: 404, error: 'Record not found' });
+      }
+      [originalRecord] = data.rows;
+      const updateRecordData = Record;
+      updateRecordData.title = req.body.title || originalRecord.title;
+      updateRecordData.type = originalRecord.type;
+      updateRecordData.id = originalRecord.id;
+      updateRecordData.createdOn = originalRecord.createdOn;
+      updateRecordData.createdBy = originalRecord.createdBy;
+      updateRecordData.image = req.body.image || originalRecord.image;
+      if (RecordController.checkActionComment(req)) {
+        updateRecordData.comment = req.body.comment || originalRecord.comment;
+        successMessage = 'Updated ' + type + ' comment';
+      } else {
+        updateRecordData.comment = originalRecord.comment;
+      }
+      if (RecordController.checkActionLocation(req)) {
+        updateRecordData.location = req.body.location || originalRecord.location;
+        successMessage = 'Updated ' + type + ' location';
+      } else {
+        updateRecordData.location = originalRecord.location;
+      }
+      if (RecordController.checkActionStatus(req)) {
+        if (req.userData.isAdmin === true) {
+          updateRecordData.status = req.body.status || originalRecord.status;
+          successMessage = 'Updated ' + type + ' status';
         } else {
-            successMessage = 'intervention record has been deleted';
+          updateRecordData.status = originalRecord.status;
+          return res.status(401).json({ status: 401, error: 'Unauthorized' });
+        }
+      } else {
+        updateRecordData.status = originalRecord.status;
+      }
+      // update record
+      updateRecordsDB(updateRecordData).then(() => {
+        if (req.userData.isAdmin === true) {
+          if (updateRecordData.status !== originalRecord.status) {
+            getSingleUserByIdDB([originalRecord.createdBy]).then((responseUserData) => {
+              const userData = responseUserData.rows[0];
+              sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+              const msg = {
+                to: userData.email,
+                from: 'swaye407@gmail.com',
+                subject: 'iRepoter Record Update',
+                html: '<p>Thank you for using iRepoter, your post status <strong> '
+                          + updateRecordData.title + '</strong> has been updated to <strong>'
+                          + updateRecordData.status + ' </strong></p>',
+              };
+              sgMail.send(msg);
+            })
+              .catch((error) => {
+                console.log(error);
+                return res.status(400).json({ status: 400, error: 'An error occurred' });
+              });
+            // end get record owner
+          }
         }
         return res.status(200).json({
-            status: 200,
-            data: [{ id: recordId, message: successMessage }] });
+          status: 200,
+          data: [{ id: originalRecord.id, message: successMessage }],
+        });
+      })
+        .catch((error) => {
+          console.log(error);
+          return res.status(400).json({ status: 400, error: 'An error occurred' });
+        });
+      // end update
     })
-    .catch((error) => {
+      .catch((error) => {
+        console.log(error);
         return res.status(400).json({ status: 400, error: 'An error occurred' });
-    });
-};
+      });
+    // end record get
+  }
 
-export { create, getAll, getSingle, updateRecord, deleteRecord };
+
+  /** This method deletes a record if the user performing the action owns the record
+   * @param {object} req - request object
+   * @param {object} res - response object
+   * @returns {Object} res - response object
+   */
+  deleteRecord(req, res) {
+    let successMessage;
+    const recordId = parseInt(req.params.id, 10);
+    getSingleRecordDB([recordId]).then((data) => {
+      const [userDataFromDb] = data.rows;
+      if (req.userData.id !== userDataFromDb.id) {
+        deleteRecordDB([recordId]).then(() => {
+          if (checkIfRedFlag(req)) {
+            successMessage = 'red-flag record has been deleted';
+          } else {
+            successMessage = 'intervention record has been deleted';
+          }
+          return res.status(200).json({
+            status: 200,
+            data: [{ id: recordId, message: successMessage }],
+          });
+        })
+          .catch((error) => {
+            console.log(error);
+            res.status(400).json({ status: 400, error: 'An error occurred' });
+          });
+      }
+    })
+      .catch((error) => {
+        console.log(error);
+        return res.status(400).json({ status: 400, error: 'An error occurred' });
+      });
+  }
+}
+
+const recordController = new RecordController();
+export default recordController;

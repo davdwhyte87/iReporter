@@ -6,6 +6,7 @@ services:
 
 script:
   - npm run build
+  - npm test
   - npm run coverage
 
 before_install:
