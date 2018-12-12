@@ -26,6 +26,25 @@ describe('Tests for authentication', () => {
         done();
       });
   });
+
+  it('should sign the admin up', (done) => {
+    const admin = {
+      firstname: 'iRepoterMan',
+      email: 'adminIreporter@gmail.com',
+      lastname: 'solomon',
+      othernames: 'KL',
+      username: 'adminMan',
+      phone: '0902939930',
+      password: '12345',
+    };
+    chai.request(app).post('/api/v1/auth/signup').send(admin)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('data');
+        done();
+      });
+  });
   it('should not sign a user up with wrong data', (done) => {
     const user = {
       firstname: 'Jom',

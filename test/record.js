@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const should = chai.should();
 let ExampleRecordId = null;
 let token = null;
-
+let adminToken = null;
 describe('Tests for records ', () => {
   before((done) => {
     const user = {
@@ -22,6 +22,21 @@ describe('Tests for records ', () => {
         res.body.should.have.property('data');
         const [data] = res.body.data;
         ({ token } = data);
+        done();
+      });
+  });
+  before((done) => {
+    const admin = {
+      email: 'adminIreporter@gmail.com',
+      password: '12345',
+    };
+    chai.request(app).post('/api/v1/auth/login').send(admin)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('data');
+        const [data] = res.body.data;
+        adminToken = data.token;
         done();
       });
   });
@@ -181,6 +196,29 @@ describe('Tests for records ', () => {
         res.should.have.status(404);
         res.should.be.a('object');
         res.body.should.have.property('error');
+        done();
+      });
+  });
+  it('should update a record status', (done) => {
+    const update = { status: 'rejected' };
+    chai.request(app).patch('/api/v1/red-flags/' + ExampleRecordId + '/status')
+      .send(update)
+      .set('token', adminToken)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('data');
+        done();
+      });
+  });
+  it('should not update a record status without admin permission', (done) => {
+    const update = { status: 'rejected' };
+    chai.request(app).patch('/api/v1/red-flags/' + ExampleRecordId + '/status')
+      .send(update)
+      .set('token', token)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.should.be.a('object');
         done();
       });
   });

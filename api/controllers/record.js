@@ -95,7 +95,7 @@ class RecordController {
    * @param {Object} req - Incoming request object
    * @return {Boolean} - Boolean
    */
-  checkActionComment(req) {
+  static checkActionComment(req) {
     const data = 'comment';
     const myPattern = new RegExp('(\\w*\\w*' + data + ')', 'gi');
     const matches = String(req.originalUrl).match(myPattern);
@@ -110,7 +110,7 @@ class RecordController {
    * @param {Object} req - request object
    * @return {Boolean} Boolean
    */
-  checkActionLocation(req) {
+  static checkActionLocation(req) {
     const data = 'location';
     const myPattern = new RegExp('(\\w*\\w*' + data + ')', 'gi');
     const matches = String(req.originalUrl).match(myPattern);
@@ -125,7 +125,7 @@ class RecordController {
    * @param {Object} req - request object
    * @return {Object} Boolean - returns true or false
    */
-  checkActionStatus(req) {
+  static checkActionStatus(req) {
     const data = 'status';
     const myPattern = new RegExp('(\\w*\\w*' + data + ')', 'gi');
     const matches = String(req.originalUrl).match(myPattern);
@@ -142,7 +142,6 @@ class RecordController {
    * @return {Object}  - response Object
    */
   updateRecord(req, res) {
-    console.log(this.checkActionComment(req));
     let successMessage;
     let type;
     if (checkIfRedFlag(req)) {
@@ -164,20 +163,20 @@ class RecordController {
       updateRecordData.createdOn = originalRecord.createdOn;
       updateRecordData.createdBy = originalRecord.createdBy;
       updateRecordData.image = req.body.image || originalRecord.image;
-      if (this.checkActionComment(req)) {
+      if (RecordController.checkActionComment(req)) {
         updateRecordData.comment = req.body.comment || originalRecord.comment;
       } else {
         updateRecordData.comment = originalRecord.comment;
         successMessage = 'Updated ' + type + ' comment';
       }
-      if (this.checkActionLocation(req)) {
+      if (RecordController.checkActionLocation(req)) {
         updateRecordData.location = req.body.location || originalRecord.location;
         successMessage = 'Updated ' + type + ' location';
       } else {
         updateRecordData.location = originalRecord.location;
       }
-      if (this.checkActionStatus(req)) {
-        if (req.userData.isAdmin === 1) {
+      if (RecordController.checkActionStatus(req)) {
+        if (req.userData.isAdmin === true) {
           updateRecordData.status = req.body.status || originalRecord.status;
           successMessage = 'Updated ' + type + ' status';
         } else {
@@ -239,7 +238,7 @@ class RecordController {
     let successMessage;
     const recordId = parseInt(req.params.id, 10);
     getSingleRecordDB([recordId]).then((data) => {
-      const [userDataFromDb] = data;
+      const [userDataFromDb] = data.rows;
       if (req.userData.id !== userDataFromDb.id) {
         deleteRecordDB([recordId]).then(() => {
           if (checkIfRedFlag(req)) {

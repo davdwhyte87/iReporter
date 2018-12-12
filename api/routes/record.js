@@ -10,7 +10,7 @@ recordRouter.post('/', Auth, validator('create-record'), handleValidation, recor
 recordRouter.get('/', Auth, recordController.getAll);
 recordRouter.get('/:id', Auth, recordController.getSingle);
 recordRouter.patch('/:id/comment', Auth, validator('update-comment'), handleValidation, recordController.updateRecord);
-recordRouter.patch('/:id/status', validator('update-status'), Auth, handleValidation, recordController.updateRecord);
+recordRouter.patch('/:id/status', Auth, validator('update-status'), handleValidation, recordController.updateRecord);
 recordRouter.patch('/:id/location', Auth, validator('update-location'), handleValidation, recordController.updateRecord);
 recordRouter.delete('/:id', Auth, recordController.deleteRecord);
 

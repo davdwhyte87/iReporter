@@ -50,10 +50,11 @@ const validate = (method) => {
       return [
         check.body('status', 'A valid status is requires. Either of (draft,rejected,under-investigation,resolved)')
           .exists().isString().custom((value) => {
-            if (value !== 'draft' || 'rejected' || 'under-investigation' || 'resolved') {
-              throw new Error('A valid status is requires. Either of (draft,rejected,under-investigation,resolved)');
+            const status = ['draft', 'rejected', 'under-investigation', 'resolved'];
+            if (status.includes(value)) {
+              return value;
             }
-            return value;
+            throw new Error('A valid status is requires. Either of (draft,rejected,under-investigation,resolved)');
           }),
       ];
     }
