@@ -37,6 +37,7 @@ describe('Tests for records ', () => {
         res.body.should.have.property('data');
         const [data] = res.body.data;
         adminToken = data.token;
+        console.log(adminToken);
         done();
       });
   });
@@ -201,10 +202,12 @@ describe('Tests for records ', () => {
   });
   it('should update a record status', (done) => {
     const update = { status: 'rejected' };
+    console.log(adminToken);
     chai.request(app).patch('/api/v1/red-flags/' + ExampleRecordId + '/status')
       .send(update)
       .set('token', adminToken)
       .end((err, res) => {
+        console.log(err);
         res.should.have.status(200);
         res.should.be.a('object');
         res.body.should.have.property('data');
