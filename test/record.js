@@ -37,7 +37,6 @@ describe('Tests for records ', () => {
         res.body.should.have.property('data');
         const [data] = res.body.data;
         adminToken = data.token;
-        console.log(adminToken);
         done();
       });
   });
