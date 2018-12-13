@@ -23,7 +23,7 @@ function deleteRecord(e){
   const currentId = elementClicked.getAttribute('data');
   const recordsContainer = document.getElementById('records');
   recordsContainer.innerHTML = `<div class="container-center">Deleting.....</div>`;
-  const deleteUrl = "https://ireporterx.herokuapp.com/api/v1/red-flags/"+ currentId
+  const deleteUrl = 'https://ireporterx.herokuapp.com/api/v1/red-flags/' + currentId;
   console.log(deleteUrl);
   console.log('deleting');
   fetch(deleteUrl, {
@@ -35,10 +35,13 @@ function deleteRecord(e){
       },
   }).then(res => res.json())
   .then(response => {
-    // getData();
+    console.log(response);
+    getData();
   })
   .catch((error) => {
     console.log(error);
+    const recordsContainer = document.getElementById('records');
+    recordsContainer.innerHTML = `<div class="container-center" style='color:red'>Error. You may reload..</div>`;
   });
 }
 
@@ -69,7 +72,7 @@ function getData() {
         <div class="record-actions">
             <a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>
             ${(user.id === currentData.createdBy)?
-              '<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>'
+              `<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>`
               :''}
         </div>
        </div>
@@ -107,7 +110,7 @@ function getData() {
         <div class="record-actions">
             <a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>
             ${(user.id === currentData.createdBy)?
-            '<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>'
+            `<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>`
             :''}
         </div>
        </div>
