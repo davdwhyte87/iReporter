@@ -28,7 +28,8 @@ function previewImage(event) {
   }
 
 var geolocation_display = document.getElementById("geolocation-display");
-function getLocation() {
+function getLocation(event) {
+    event.preventDefault();
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition,showGeolocationError);
     } else { 
@@ -37,8 +38,7 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    geolocation_display.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
+    geolocation_display.innerHTML = position.coords.latitude + " , " + position.coords.longitude;
 }
 
 function showGeolocationError(error) {
@@ -116,6 +116,7 @@ function flashMessage(type, message, errors){
         
     }
     console.log(messageDiv);
+    console.log(document.getElementById('flash'));
     body.insertBefore(messageDiv, document.getElementById('flash'));
 }
 
