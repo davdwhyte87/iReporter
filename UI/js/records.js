@@ -24,9 +24,10 @@ function deleteRecord(e){
   const recordsContainer = document.getElementById('records');
   recordsContainer.innerHTML = `<div class="container-center">Deleting.....</div>`;
   const deleteUrl = "https://ireporterx.herokuapp.com/api/v1/red-flags/"+ currentId
+  console.log(deleteUrl);
   console.log('deleting');
   fetch(deleteUrl, {
-    method: "DELET",
+    method: "DELETE",
     headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
@@ -67,13 +68,15 @@ function getData() {
         <a href="single-record.html" class="record-title" onClick="setViewSingle(event)" data="${currentData.id}">${currentData.title}</a>
         <div class="record-actions">
             <a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>
-            <a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>
+            ${(user.id === currentData.createdBy)?
+              '<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>'
+              :''}
         </div>
        </div>
         `;
 
       }
-      // recordsContainer.innerHTML = dataHtml;
+      recordsContainer.innerHTML = dataHtml;
     }
   })
   .catch((erro) => {
@@ -103,7 +106,9 @@ function getData() {
         <a href="single-record.html" class="record-title" onClick="setViewSingle(event)" data="${currentData.id}">${currentData.title}</a>
         <div class="record-actions">
             <a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>
-            <a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>
+            ${(user.id === currentData.createdBy)?
+            '<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>'
+            :''}
         </div>
        </div>
         `;
