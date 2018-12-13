@@ -23,7 +23,5 @@ if (authCheckUser()){
       <li><a href="sign-up.html">Signup</a></li>
   </ul>
   <ul id="r-nav">
-      <li><a href="#"  onclick="logout()">Logout <i class="fa fa-fw fa-sign-out"></i> </a></li>
-      <li><a href="#" class="nav-name">David Tenni</a></li>
   </ul>`;
 }
