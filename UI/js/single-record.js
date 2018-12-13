@@ -1,4 +1,3 @@
-const url = "https://ireporterx.herokuapp.com/api/v1/red-flags";
 
 let dataHtml = '';
 const user = JSON.parse(localStorage.getItem('user'));
@@ -26,12 +25,7 @@ function deleteRecord(e){
   const deleteUrl = "https://ireporterx.herokuapp.com/api/v1/red-flags/"+ currentId
   console.log('deleting');
   fetch(deleteUrl, {
-    method: "DELET",
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        'token': localStorage.getItem('token')
-      },
+    method: "delete",
   }).then(res => res.json())
   .then(response => {
     // getData();
@@ -43,8 +37,11 @@ function deleteRecord(e){
 
 
 function getData() {
-  console.log('fetching..');
-  const urlInterventions = "https://ireporterx.herokuapp.com/api/v1/interventions/"
+  const recordsContainer = document.getElementById('record');
+  recordsContainer.innerHTML = `<div class="container-center">Loading...</div>`;
+  console.log('fetching single...');
+  const currentId = localStorage.getItem('currentId')
+  const url = "https://ireporterx.herokuapp.com/api/v1/red-flags/"+ currentId
   fetch(url, {
     method: "GET",
     headers: {
@@ -55,7 +52,7 @@ function getData() {
   .then(response => {
     console.log(response);
     if (response.status === 200) {
-      const recordsContainer = document.getElementById('records');
+      const recordsContainer = document.getElementById('record');
       let i = 0;
       const data = response.data;
       for (i; i < data.length; i++) {
@@ -64,43 +61,9 @@ function getData() {
         <div class="card col-3">
         <p class="record-status">Status: ${currentData.status} ${user.isAdmin?'<a href=""><i class="fa fa-fw fa-edit"></i></a>':''}</p> 
         ${ currentData.image?' <img class="record-image" src="${currentData.image}"/>':''}
-        <a href="single-record.html" class="record-title" onClick="setViewSingle(event)" data="${currentData.id}">${currentData.title}</a>
-        <div class="record-actions">
-            <a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>
-            <a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>
-        </div>
-       </div>
-        `;
-
-      }
-      // recordsContainer.innerHTML = dataHtml;
-    }
-  })
-  .catch((erro) => {
-    const recordsContainer = document.getElementById('records');
-    recordsContainer.innerHTML = `<div class="container-center" style='color:red'>Error. You may reload..</div>`;
-  });
-
-  fetch(urlInterventions, {
-    method: "GET",
-    headers: {
-        'Content-Type': 'application/json',
-        'token': localStorage.getItem('token')
-      },
-  }).then(res => res.json())
-  .then(response => {
-    console.log(response);
-    if (response.status === 200) {
-      const recordsContainer = document.getElementById('records');
-      let i = 0;
-      const data = response.data;
-      for (i; i < data.length; i++) {
-        const currentData = data[i];
-        dataHtml = dataHtml+ `
-        <div class="card col-3">
-        <p class="record-status">Status: ${currentData.status} ${user.isAdmin?'<a href=""><i class="fa fa-fw fa-edit"></i></a>':''}</p> 
-        ${ currentData.image?' <img class="record-image" src="${currentData.image}"/>':''}
-        <a href="single-record.html" class="record-title" onClick="setViewSingle(event)" data="${currentData.id}">${currentData.title}</a>
+        <a href="single-record.html" class="record-title">${currentData.title}</a>
+        <p class="rc-text">
+        ${currentData.comment}
         <div class="record-actions">
             <a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>
             <a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>
@@ -113,8 +76,9 @@ function getData() {
     }
   })
   .catch((erro) => {
-    console.log(erro);
     const recordsContainer = document.getElementById('records');
     recordsContainer.innerHTML = `<div class="container-center" style='color:red'>Error. You may reload..</div>`;
   });
+
+  
 }
