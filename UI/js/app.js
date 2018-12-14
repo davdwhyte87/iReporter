@@ -28,8 +28,7 @@ function previewImage(event) {
   }
 
 var geolocation_display = document.getElementById("geolocation-display");
-function getLocation(event) {
-    event.preventDefault();
+function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition,showGeolocationError);
     } else { 
@@ -38,7 +37,8 @@ function getLocation(event) {
 }
 
 function showPosition(position) {
-    geolocation_display.innerHTML = position.coords.latitude + " , " + position.coords.longitude;
+    geolocation_display.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
 }
 
 function showGeolocationError(error) {
@@ -86,41 +86,4 @@ function openModal(name){
 function closeModal(name){
   var modal = document.getElementById(name);
   modal.style.display="none";
-}
-
-
-function flashMessage(type, message, errors){
-    const body = document.getElementById('form');
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('alert');
-    messageDiv.id = 'alert'
-    if (document.getElementById('alert')) {
-        document.getElementById('alert').style.display='none';
-    }
-    const cloaseBtn = '<span class="closebtn" onclick=this.parentElement.style.display="none";>&times;</span>'
-    if (type === 'success') {
-        messageDiv.classList.add('success');
-        messageDiv.innerHTML = cloaseBtn+ '<p>'+message+'</p>';
-    } else if (type === 'error') {
-        messageDiv.classList.add('error');
-        messageDiv.innerHTML = cloaseBtn+ '<p>'+message+'</p>';
-    } else if (type === 'errorlist') {
-        messageDiv.classList.add('error');
-        let i = 0;
-        let lielements = '';
-        for (i; i<errors.length; i++){
-            lielements = lielements+"<li> "+ errors[i]+" </li>";
-        }
-        messageDiv.innerHTML = cloaseBtn+ "<ul>"+lielements+"</ul>";
-    } else {
-        
-    }
-    console.log(messageDiv);
-    console.log(document.getElementById('flash'));
-    body.insertBefore(messageDiv, document.getElementById('flash'));
-}
-
-function logout() {
-    localStorage.clear();
-    window.location = 'index.html';
 }
