@@ -36,7 +36,7 @@ function deleteRecord(e){
   }).then(res => res.json())
   .then(response => {
     console.log(response);
-    getData();
+    window.location.reload();
   })
   .catch((error) => {
     console.log(error);
@@ -91,7 +91,6 @@ function getData() {
       for (i; i < data.length; i++) {
         const currentData = data[i];
         dataHtml = dataHtml+ recordTemplate(currentData);
-
       }
       recordsContainer.innerHTML = dataHtml;
     }
@@ -111,10 +110,10 @@ function recordTemplate(currentData) {
   ${ currentData.image?' <img class="record-image" src="${currentData.image}"/>':''}
   <a href="single-record.html" class="record-title" onClick="setViewSingle(event)" data="${currentData.id}">${currentData.title}</a>
   <div class="record-actions">
-  ${(user.id === currentData.createdBy)?
+  ${(user.id == currentData.createdBy)?
     `<a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>`
     :''}
-      ${(user.id === currentData.createdBy)?
+      ${(user.id == currentData.createdBy)?
       `<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>`
       :''}
   </div>
