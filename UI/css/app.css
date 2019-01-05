@@ -16,8 +16,9 @@ margin: 0px;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 1px;
+    padding: 20px;
     margin: 10px;
+    background-color: white;
 }
 
 .mini-card{
@@ -45,6 +46,7 @@ margin: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
     text-decoration: none;
+    padding: 15px;
 }
 
 .card a{
@@ -79,6 +81,36 @@ margin: 0px;
 
 #img-preview{
     width: 100%;
+}
+
+.alert {
+    padding: 20px;
+    color: white;
+    margin-bottom: 15px;
+    width: 300px;
+}
+
+.error {
+    background-color: #f44336;
+}
+
+.success {
+    background-color: #4CAF50;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {
+    color: black;
 }
 
 .report-summary{
