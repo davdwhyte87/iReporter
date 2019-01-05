@@ -53,8 +53,8 @@ class UserController {
           });
           const userData2 = user;
           delete userData2.password;
-          return res.status(200).json({
-            status: 200,
+          return res.status(201).json({
+            status: 201,
             data: [{ token: tokenData, user: userData2 }],
           });
         })

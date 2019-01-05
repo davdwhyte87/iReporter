@@ -20,7 +20,7 @@ describe('Tests for authentication', () => {
     };
     chai.request(app).post('/api/v1/auth/signup').send(user)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.should.be.a('object');
         res.body.should.have.property('data');
         done();
@@ -39,7 +39,7 @@ describe('Tests for authentication', () => {
     };
     chai.request(app).post('/api/v1/auth/signup').send(admin)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.should.be.a('object');
         res.body.should.have.property('data');
         done();

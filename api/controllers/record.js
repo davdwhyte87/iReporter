@@ -40,8 +40,8 @@ class RecordController {
     record.image = req.body.image;
     record.location = req.body.location;
     record.status = 'draft';
-    createRecordDB(record).then(() => res.status(200).json({
-      status: 200,
+    createRecordDB(record).then(() => res.status(201).json({
+      status: 201,
       data: [{ id: record.id, message: successMessage }],
     }))
       .catch((error) => {

@@ -50,7 +50,7 @@ describe('Tests for records ', () => {
     };
     chai.request(app).post('/api/v1/red-flags').send(record).set('token', token)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.should.be.a('object');
         res.body.should.have.property('data');
         ExampleRecordId = res.body.data.id;
@@ -67,7 +67,7 @@ describe('Tests for records ', () => {
     };
     chai.request(app).post('/api/v1/interventions').send(record).set('token', token)
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.should.be.a('object');
         res.body.should.have.property('data');
         ExampleRecordId = res.body.data[0].id;
