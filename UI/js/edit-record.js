@@ -66,7 +66,7 @@ fetch(url, {
             if (typeof response.error === 'string' || response.error instanceof String) {
                 flashMessage('error', response.error);  
             } else {
-                flashMessage('errorlist', 'An error occured', response.error);
+                flashMessage('errorlist', 'Error updating location', response.error);
             }
         } else if (response.status === 200) {
             flashMessage('success', response.data[0].message);
