@@ -7,7 +7,7 @@ function setEdit(e){
   const elementClicked = e.target;
   const currentId = elementClicked.getAttribute('data');
   localStorage.setItem('currentId', currentId);
-  window.location = 'single-record.html';
+  window.location = 'edit-record.html';
 }
 
 function setViewSingle(e) {
@@ -93,6 +93,9 @@ function getData() {
         dataHtml = dataHtml+ recordTemplate(currentData);
       }
       recordsContainer.innerHTML = dataHtml;
+    }
+    if (response.status === 401) {
+      logout();
     }
   })
   .catch((erro) => {
