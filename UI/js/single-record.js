@@ -89,7 +89,7 @@ function recordTemplate(currentData) {
   return  `
   <div class="card">
   <p class="record-status">Status: ${currentData.status} ${user.isAdmin?'<a href=""><i class="fa fa-fw fa-edit"></i></a>':''}</p> 
-  ${ currentData.image?' <img class="record-image" src="${currentData.image}"/>':''}
+  ${ currentData.image?` <img class="record-image" src="${currentData.image}"/>`:''}
   <a href="#" class="record-title">${currentData.title}</a>
   ${currentData.comment}
   <div class="record-actions">

@@ -26,6 +26,7 @@ function getData() {
       console.log(recordData.type);
       formData.title.value = data.title;
       formData.comment.value = data.comment;
+      document.getElementById('img-preview').src=data.image;
       tinymce.activeEditor.setContent(data.comment);
     }
   })
@@ -81,6 +82,8 @@ fetch(url, {
 });
 }
 const currentId = localStorage.getItem('currentId');
+
+//update function
 function update(event) {
     event.preventDefault();
     const createButton = document.getElementById('create_btn');
@@ -90,7 +93,8 @@ function update(event) {
     const data= {
         title: formData.title.value,
         comment: formData.comment.value,
-        location: geolocationField.innerText
+        location: geolocationField.innerText,
+        image: localStorage.getItem('record-image')
     };
 
     if(data.location !== '') {
