@@ -17,21 +17,31 @@ function setViewSingle(e) {
   window.location = 'single-record.html'; 
 }
 
+
 function deleteRecord(e){
   const elementClicked = e.target;
   const currentId = elementClicked.getAttribute('data');
-  const recordsContainer = document.getElementById('records');
+  const recordsContainer = document.getElementById('record');
   recordsContainer.innerHTML = `<div class="container-center">Deleting.....</div>`;
-  const deleteUrl = "https://ireporterx.herokuapp.com/api/v1/red-flags/"+ currentId
+  const deleteUrl = 'https://ireporterx.herokuapp.com/api/v1/red-flags/' + currentId;
+  console.log(deleteUrl);
   console.log('deleting');
   fetch(deleteUrl, {
-    method: "delete",
+    method: "DELETE",
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'token': localStorage.getItem('token')
+      },
   }).then(res => res.json())
   .then(response => {
-    // getData();
+    console.log(response);
+    window.location = 'records.html';
   })
   .catch((error) => {
     console.log(error);
+    const recordsContainer = document.getElementById('records');
+    recordsContainer.innerHTML = `<div class="container-center" style='color:red'>Error. You may reload..</div>`;
   });
 }
 
@@ -73,17 +83,20 @@ function getData() {
 
 
 function recordTemplate(currentData) {
+  if(user.id == currentData.createdBy) {
+    console.log(user.id);
+  }
   return  `
   <div class="card">
   <p class="record-status">Status: ${currentData.status} ${user.isAdmin?'<a href=""><i class="fa fa-fw fa-edit"></i></a>':''}</p> 
   ${ currentData.image?' <img class="record-image" src="${currentData.image}"/>':''}
-  <a href="single-record.html" class="record-title">${currentData.title}</a>
+  <a href="#" class="record-title">${currentData.title}</a>
   ${currentData.comment}
   <div class="record-actions">
-  ${(user.id === currentData.createdBy)?
+  ${(user.id == currentData.createdBy)?
     `<a href="#" class="rc"><i  onClick="setEdit(event)" data="${currentData.id}" class="fa fa-fw fa-edit "></i></a>`
     :''}
-      ${(user.id === currentData.createdBy)?
+      ${(user.id == currentData.createdBy)?
       `<a href="#" class="rc"><i onClick="deleteRecord(event)"  data="${currentData.id}"  class="fa fa-fw fa-trash"></i></a>`
       :''}
   </div>

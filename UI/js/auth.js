@@ -35,10 +35,12 @@ function signup(event) {
             } else {
                 flashMessage('errorlist', 'An error occured', response.error);
             }
-        } else if (response.status === 200) {
+        } else if (response.status === 201) {
             flashMessage('success', 'User successfully created');
             // store user token
             localStorage.setItem('token', response.data[0].token);
+            localStorage.setItem('user', JSON.stringify(response.data[0].user));
+            window.location = 'index.html';
         }
     })
     .catch((error) => {

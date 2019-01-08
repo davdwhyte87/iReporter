@@ -84,10 +84,8 @@ margin: 0px;
 }
 
 .alert {
-    padding: 20px;
+    padding: 10px;
     color: white;
-    margin-bottom: 15px;
-    width: 300px;
 }
 
 .error {

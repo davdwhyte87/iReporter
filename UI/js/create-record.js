@@ -46,7 +46,7 @@ function create(event) {
             } else {
                 flashMessage('errorlist', 'An error occured', response.error);
             }
-        } else if (response.status === 200) {
+        } else if (response.status === 201) {
             flashMessage('success', response.data[0].message);
         }
         if (response.status === 401) {
