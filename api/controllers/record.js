@@ -91,6 +91,47 @@ class RecordController {
   }
 
   /**
+   * This updates a records image
+   * @param {Object} req - Incoming request
+   * @param {Object} res - Response to be returned
+   * @return {Object} res - Response for a request
+   */
+  updateImage(req, res) {
+    let successMessage;
+    const recordId = parseInt(req.params.id, 10);
+    getSingleRecordDB([recordId]).then((data) => {
+      const [recordData] = data.rows;
+      const recordOwnerId = parseInt(recordData.createdBy, 10);
+      const userId = parseInt(req.userData.id, 10);
+      if (userId === recordOwnerId) {
+        const updatedRecord = recordData;
+        updatedRecord.image = req.body.image || recordData.image;
+        updateRecordsDB(updatedRecord).then(() => {
+          if (checkIfRedFlag(req)) {
+            successMessage = 'red-flag image has been updated';
+          } else {
+            successMessage = 'intervention image has been updated';
+          }
+          return res.status(200).json({
+            status: 200,
+            data: [{ id: recordId, message: successMessage }],
+          });
+        })
+          .catch((error) => {
+            console.log(error);
+            res.status(400).json({ status: 400, error: 'An error occurred' });
+          });
+      } else {
+        return res.status(401).json({ status: 401, error: 'You are Unauthorized' });
+      }
+    })
+      .catch((error) => {
+        console.log(error);
+        return res.status(400).json({ status: 400, error: 'An error occurred' });
+      });
+  }
+
+  /**
    * This function checks if a comment is to be updated
    * @param {Object} req - Incoming request object
    * @return {Boolean} - Boolean
@@ -238,8 +279,10 @@ class RecordController {
     let successMessage;
     const recordId = parseInt(req.params.id, 10);
     getSingleRecordDB([recordId]).then((data) => {
-      const [userDataFromDb] = data.rows;
-      if (req.userData.id !== userDataFromDb.id) {
+      const [recordData] = data.rows;
+      const recordOwnerId = parseInt(recordData.createdBy, 10);
+      const userId = parseInt(req.userData.id, 10);
+      if (userId === recordOwnerId) {
         deleteRecordDB([recordId]).then(() => {
           if (checkIfRedFlag(req)) {
             successMessage = 'red-flag record has been deleted';
@@ -255,6 +298,8 @@ class RecordController {
             console.log(error);
             res.status(400).json({ status: 400, error: 'An error occurred' });
           });
+      } else {
+        return res.status(401).json({ status: 401, error: 'You are Unauthorized' });
       }
     })
       .catch((error) => {
