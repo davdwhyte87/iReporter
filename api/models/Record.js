@@ -54,6 +54,17 @@ const getSingleRecordDB = async (selector) => {
 
 
 /**
+ * This method relates with the database directly and gets all of a users records
+ * @param {Array} selector - an array of query selectors
+ * @returns {Object} - returns a pool.query instance
+ */
+const getUserRecordsDB = async (selector) => {
+  const getRecordsQuery = 'SELECT * FROM records WHERE "createdBy"=$1';
+  return pool.query(getRecordsQuery, selector);
+};
+
+
+/**
  * This method relates with the database directly and updates a record
  * @param {Object} record - record object to be created
  * @returns {Object} - returns a pool.query instance
@@ -82,4 +93,5 @@ const deleteRecordDB = async (selector) => {
 export {
   Record, createRecordDB, getAllRecordsDB,
   getSingleRecordDB, updateRecordsDB, deleteRecordDB,
+  getUserRecordsDB,
 };

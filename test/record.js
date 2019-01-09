@@ -118,6 +118,17 @@ describe('Tests for records ', () => {
       });
   });
 
+  it('should get all the records that belongs to a user', (done) => {
+    chai.request(app).get('/api/v1/red-flags/me').set('token', token)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('data');
+        res.body.data.should.be.a('array');
+        done();
+      });
+  });
+
   it('should not get all the red-flag records in the database', (done) => {
     chai.request(app).get('/api/v1/red-flags').set('token', token + 9090)
       .end((err, res) => {
