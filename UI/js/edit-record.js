@@ -81,6 +81,52 @@ fetch(url, {
   flashMessage('error', 'An error occured');
 });
 }
+
+//image update 
+function updateImage(image) {
+    const data= {
+      image: image
+  };
+  let url = null;
+  if(recordData.type === 'red-flag'){
+    url="https://ireporterx.herokuapp.com/api/v1/red-flags/"+currentId+'/addImage';
+  } else {
+    url="https://ireporterx.herokuapp.com/api/v1/interventions/"+currentId+'/addImage';
+  }
+  const createButton = document.getElementById('create_btn');
+  createButton.disabled = true;
+  createButton.innerHTML = 'loading....';
+  fetch(url, {
+    method: "PATCH",
+    headers: {
+        'Content-Type': 'application/json',
+        'token': localStorage.getItem('token')
+      },
+      body: JSON.stringify(data),
+  }).then(res => res.json())
+  .then(response => {
+      // clear image from storage
+      localStorage.removeItem('record-image');
+          // display success or error messages
+          if (response.status === 400) {
+              if (typeof response.error === 'string' || response.error instanceof String) {
+                  flashMessage('error', response.error);  
+              } else {
+                  flashMessage('errorlist', 'Error updating location', response.error);
+              }
+          } else if (response.status === 200) {
+              flashMessage('success', response.data[0].message);
+          }
+          if (response.status === 401) {
+              flashMessage('error', 'An error occured');
+              logout();
+          }
+  })
+  .catch((error) => {
+    console.log(error);
+    flashMessage('error', 'An error occured');
+  });
+}
 const currentId = localStorage.getItem('currentId');
 
 //update function
@@ -94,12 +140,16 @@ function update(event) {
         title: formData.title.value,
         comment: formData.comment.value,
         location: geolocationField.innerText,
-        image: localStorage.getItem('record-image')
+        image: localStorage.getItem('record-image') || ''
     };
-
+    console.log( localStorage.getItem('record-image') );
     if(data.location !== '') {
       updateLocation(data.location);
     }
+
+    if(data.image !== '') {
+        updateImage(data.image);
+      }
     data.comment = tinymce.get('mytextarea').getContent();
     console.log(recordData)
     if(recordData.type === 'red-flag'){
