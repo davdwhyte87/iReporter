@@ -74,6 +74,11 @@ const validate = (method) => {
           }),
       ];
     }
+    case 'addImage': {
+      return [
+        check.body('image', 'A valid image is required').exists().isString(),
+      ];
+    }
     default: {
       return [];
     }

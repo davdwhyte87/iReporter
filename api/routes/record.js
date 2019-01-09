@@ -13,5 +13,6 @@ recordRouter.patch('/:id/comment', Auth, validator('update-comment'), handleVali
 recordRouter.patch('/:id/status', Auth, validator('update-status'), handleValidation, recordController.updateRecord);
 recordRouter.patch('/:id/location', Auth, validator('update-location'), handleValidation, recordController.updateRecord);
 recordRouter.delete('/:id', Auth, recordController.deleteRecord);
+recordRouter.patch('/:id/addImage', Auth, validator('addImage'), handleValidation, recordController.updateImage);
 
 export default recordRouter;
