@@ -13,7 +13,8 @@ function create(event) {
         title: formData.title.value,
         comment: formData.comment.value,
         type: formData.type.value,
-        location: geolocationField.innerText
+        location: geolocationField.innerText,
+        image: localStorage.getItem('record-image')
     };
     data.comment = tinymce.get('mytextarea').getContent();
     if( data.type === '') {

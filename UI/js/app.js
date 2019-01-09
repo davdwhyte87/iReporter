@@ -21,6 +21,7 @@ function previewImage(event) {
       var reader = new FileReader();
       reader.onload = function(e) {
         document.getElementById('img-preview').src=e.target.result;
+        localStorage.setItem('record-image', reader.result);
       };
   
       reader.readAsDataURL(event.files[0]);
