@@ -6,6 +6,7 @@ import {
   getSingleRecordDB,
   updateRecordsDB,
   deleteRecordDB,
+  getUserRecordsDB,
 } from '../models/Record';
 import { getSingleUserByIdDB } from '../models/User';
 import createId from '../helpers/generator';
@@ -20,7 +21,7 @@ class RecordController {
    * @param {Object} res - Response to be returned
    * @return {Object} res - Response for a request
    */
-  create(req, res) {
+  static create(req, res) {
     let type;
     let successMessage;
     if (checkIfRedFlag(req)) {
@@ -56,7 +57,7 @@ class RecordController {
    * @param {Object} res - Response to be returned
    * @return {Object} res - Response for a request
    */
-  getAll(req, res) {
+  static getAll(req, res) {
     let type;
     if (checkIfRedFlag(req)) {
       type = 'red-flag';
@@ -70,13 +71,14 @@ class RecordController {
       });
   }
 
+
   /**
    * This gets a single record from the database
    * @param {Object} req - Incoming request
    * @param {Object} res - Response to be returned
    * @return {Object} res - Response for a request
    */
-  getSingle(req, res) {
+  static getSingle(req, res) {
     const recordId = parseInt(req.params.id, 10);
     getSingleRecordDB([recordId]).then((data) => {
       if (data.rowCount === 0) {
@@ -96,7 +98,7 @@ class RecordController {
    * @param {Object} res - Response to be returned
    * @return {Object} res - Response for a request
    */
-  updateImage(req, res) {
+  static updateImage(req, res) {
     let successMessage;
     const recordId = parseInt(req.params.id, 10);
     getSingleRecordDB([recordId]).then((data) => {
@@ -182,7 +184,7 @@ class RecordController {
    * @param {Object} res - response object
    * @return {Object}  - response Object
    */
-  updateRecord(req, res) {
+  static updateRecord(req, res) {
     let successMessage;
     let type;
     if (checkIfRedFlag(req)) {
@@ -275,7 +277,7 @@ class RecordController {
    * @param {object} res - response object
    * @returns {Object} res - response object
    */
-  deleteRecord(req, res) {
+  static deleteRecord(req, res) {
     let successMessage;
     const recordId = parseInt(req.params.id, 10);
     getSingleRecordDB([recordId]).then((data) => {
@@ -307,7 +309,21 @@ class RecordController {
         return res.status(400).json({ status: 400, error: 'An error occurred' });
       });
   }
+
+  /**
+   * This function gets all a user records in the database
+   * @param {Object} req - Incoming request
+   * @param {Object} res - Response to be returned
+   * @return {Object} res - Response for a request
+   */
+  static getUserRecords(req, res) {
+    const userId = parseInt(req.userData.id, 10);
+    getUserRecordsDB([userId]).then(data => res.status(200).json({ status: 200, data: data.rows }))
+      .catch((error) => {
+        console.log(error);
+        res.status(400).json({ status: 400, error: 'An error occurred' });
+      });
+  }
 }
 
-const recordController = new RecordController();
-export default recordController;
+export default RecordController;
