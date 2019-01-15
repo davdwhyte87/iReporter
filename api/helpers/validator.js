@@ -79,6 +79,20 @@ const validate = (method) => {
         check.body('image', 'A valid image is required').exists().isString(),
       ];
     }
+    case 'user-update': {
+      return [
+        check.body('firstname', 'A valid First Name is required')
+          .optional().isString().isLength({ min: 2, max: 20 }),
+        check.body('lastname', 'A valid Last Name is required')
+          .optional().isString().isLength({ min: 2, max: 20 }),
+        check.body('othernames', 'A valid Other Name is required')
+          .optional().isString().isLength({ min: 2, max: 20 }),
+        check.body('username', 'A valid username is required')
+          .optional().isString().isLength({ min: 2, max: 20 }),
+        check.body('phone', 'A valid phone number is required')
+          .optional().isString().isLength({ min: 10, max: 20 }),
+      ];
+    }
     default: {
       return [];
     }

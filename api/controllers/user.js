@@ -1,7 +1,13 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from 'config';
-import { User, createUserDB, getSingleUserDB } from '../models/User';
+import {
+  User,
+  createUserDB,
+  getSingleUserDB,
+  getSingleUserByIdDB,
+  updateRecordsDB,
+} from '../models/User';
 import createId from '../helpers/generator';
 
 /**
@@ -112,7 +118,49 @@ class UserController {
         res.status(400).json({ status: 400, error: 'An error occurred' });
       });
   }
-}
 
+  /**
+   * This function updates a user
+   * @param {Object} req - request object
+   * @param {Object} res - response object
+   * @returns {Object} - returns response
+   */
+  static updateUser(req, res) {
+    const userId = req.userData.id;
+    getSingleUserByIdDB([userId]).then((data) => {
+      const userData = data.rows;
+      const [originalUserData] = userData;
+      if (userData.length === 0) {
+        return res.status(400).json({ status: 400, error: 'This account does not exist' });
+      }
+      const user = User;
+      user.id = originalUserData.id;
+      user.firstname = req.body.firstname || originalUserData.firstname;
+      user.lastname = req.body.lastname || originalUserData.lastname;
+      user.othernames = req.body.othernames || originalUserData.othernames;
+      user.username = req.body.username || originalUserData.username;
+      user.email = originalUserData.email;
+      user.phoneNumber = req.body.phone || originalUserData.phoneNumber;
+      user.createdOn = originalUserData.createdOn;
+      user.isAdmin = originalUserData.isAdmin;
+      user.password = originalUserData.password;
+      updateRecordsDB(user).then((updateData) => {
+        console.log(updateData);
+        return res.status(200).json({
+          status: 200,
+          data: [{ id: user.id, message: 'User data updated' }],
+        });
+      })
+        .catch((error) => {
+          console.log(error);
+          res.status(400).json({ status: 400, error: 'An error occurred' });
+        });
+    })
+      .catch((error) => {
+        console.log(error);
+        res.status(400).json({ status: 400, error: 'An error occurred' });
+      });
+  }
+}
 
 export default UserController;

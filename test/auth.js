@@ -6,7 +6,7 @@ import app from '../app';
 
 chai.use(chaiHttp);
 const should = chai.should();
-
+let token = null;
 describe('Tests for authentication', () => {
   it('should sign a user up', (done) => {
     const user = {
@@ -23,10 +23,29 @@ describe('Tests for authentication', () => {
         res.should.have.status(201);
         res.should.be.a('object');
         res.body.should.have.property('data');
+        const [data] = res.body.data;
+        ({ token } = data);
         done();
       });
   });
-
+  it('should update a user data', (done) => {
+    const user = {
+      firstname: 'John',
+      email: 'johnmmko32@gmail.com',
+      lastname: 'solomon',
+      othernames: 'Lee',
+      username: 'johnr00',
+      phone: '0902939930',
+      password: '12345',
+    };
+    chai.request(app).patch('/api/v1/auth/me').send(user).set('token', token)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.a('object');
+        res.body.should.have.property('data');
+        done();
+      });
+  });
   it('should sign the admin up', (done) => {
     const admin = {
       firstname: 'iRepoterMan',
