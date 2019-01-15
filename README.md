@@ -69,6 +69,8 @@ resolved).
 - `DELETE /api/v1/interventions/:id` - Deletes an intervention record
 - `POST /api/v1/auth/signup` - Signs up a new user
 - `POST /api/v1/auth/login` - Logs a user in
+- `GET /api/v1/interventions/me` - Fetches all records for an authenticated user
+- `PATCH /api/v1/auth/me` - Updates an authenticated users data
  
  ## Known issues
 - The views are just built out, they have no functionalities yet
