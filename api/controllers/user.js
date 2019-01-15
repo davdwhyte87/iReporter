@@ -139,7 +139,7 @@ class UserController {
       user.lastname = req.body.lastname || originalUserData.lastname;
       user.othernames = req.body.othernames || originalUserData.othernames;
       user.username = req.body.username || originalUserData.username;
-      user.email = req.body.email || originalUserData.email;
+      user.email = originalUserData.email;
       user.phoneNumber = req.body.phone || originalUserData.phoneNumber;
       user.createdOn = originalUserData.createdOn;
       user.isAdmin = originalUserData.isAdmin;
