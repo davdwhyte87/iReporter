@@ -42,6 +42,7 @@ function updateProfile (event) {
   editButton.disabled = false;
   editButton.innerHTML = 'Edit <i class="fa fa-fw fa-edit"></i>';
   if (response.status === 200) {
+    localStorage.setItem('user', JSON.stringify(response.data[0].user));
     flashMessage('success', response.data[0].message);
   }
   if (response.status === 400) {
