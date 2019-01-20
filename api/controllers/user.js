@@ -57,11 +57,11 @@ class UserController {
           config.JWT, {
             expiresIn: '24h',
           });
-          const userData2 = user;
-          delete userData2.password;
+          const filteredUser = user;
+          delete filteredUser.password;
           return res.status(201).json({
             status: 201,
-            data: [{ token: tokenData, user: userData2 }],
+            data: [{ token: tokenData, user: filteredUser }],
           });
         })
           .catch((error) => {
@@ -145,10 +145,12 @@ class UserController {
       user.isAdmin = originalUserData.isAdmin;
       user.password = originalUserData.password;
       updateRecordsDB(user).then((updateData) => {
+        const newUser = user;
+        delete newUser.password;
         console.log(updateData);
         return res.status(200).json({
           status: 200,
-          data: [{ id: user.id, message: 'User data updated' }],
+          data: [{ user: newUser, message: 'User data updated' }],
         });
       })
         .catch((error) => {
