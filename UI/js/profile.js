@@ -38,6 +38,9 @@ function getRecords() {
         }
       }
       recordsContainer.innerHTML = dataHtml;
+    } 
+    if (response.status === 401) {
+      logout();
     }
   })
   .catch((erro) => {
