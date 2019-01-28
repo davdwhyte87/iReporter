@@ -532,5 +532,10 @@ body {
 
 	.nav-mobile {
 		display: block;
-  	}
+		}
+	.hero {
+		height: 100%;
+		padding: 0px;
+		background-attachment: unset;
+	}
 }
